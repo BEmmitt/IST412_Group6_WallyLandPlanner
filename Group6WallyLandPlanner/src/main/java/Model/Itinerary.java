@@ -6,8 +6,8 @@ package Model;
 
 /**
  *
- * @author bemmi
+ * @author pault
  */
-public class Ride {
+public class Itinerary {
     
 }
