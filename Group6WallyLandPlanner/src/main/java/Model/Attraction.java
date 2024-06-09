@@ -8,37 +8,77 @@ import java.util.Date;
 /**
  *
  * @author Paul
+ * @version 1.0
+ * @since 2024-06/09
  */
 public class Attraction {
     
     private String name;
     private int capacity;
     private Date timeSlot;
+         
+ /**
+ * Gets the name of the attraction.
+ * 
+ * @return the attraction.
+ */
     
-    public String getName;
+    public String getName()
     {
         return name;
     }
+    
+/**
+ * Sets the name of the attraction.
+ * 
+ * @param name the name of the attraction.
+ */
     
     public void setName(String name)
     {
         this.name=name;
     }
     
+ /**
+ * Gets the capacity of the attraction.
+ * 
+ * @return the capacity.
+ */
+    
     public int getCapacity()
     {
         return capacity;
     }
     
-    public void setCapacity(int Capacity)
+/**
+ * Sets the capacity of the attraction.
+ * 
+ * @param capacity the capacity of the attraction.
+ */
+    
+    
+    public void setCapacity(int capacity)
     {
         this.capacity=capacity;
     }
+    
+        /**
+ * Gets the time slots for the attraction.
+ * 
+ * @return the time slots.
+ */
     
     public Date getTimeSlot()
     {
         return timeSlot;
     }
+    
+ /**
+ * Sets the time slots for the attraction.
+ * 
+ * @param timeSlot the time slots for the attraction.
+ */
+    
     
     public void setTimeSlot(Date timeSlot)
     {
