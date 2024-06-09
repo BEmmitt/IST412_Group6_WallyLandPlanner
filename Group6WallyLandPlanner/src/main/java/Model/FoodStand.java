@@ -5,9 +5,21 @@
 package Model;
 
 /**
- *
+ *  String holds name of food stand
+ * 
  * @author bemmi
  */
 public class FoodStand {
     
+    String name;
+    
+    public String getName(){
+        return name;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
 }
+    
+    
