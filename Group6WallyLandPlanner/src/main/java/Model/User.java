@@ -8,6 +8,6 @@ package Model;
  *
  * @author Jordan
  */
-public class Show {
+public class User {
     
 }

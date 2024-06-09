@@ -6,7 +6,7 @@ package Model;
 
 /**
  *
- * @author bemmi
+ * @author Praj
  */
 public class Restaurant {
     

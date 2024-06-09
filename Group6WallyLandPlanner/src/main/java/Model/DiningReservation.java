@@ -6,8 +6,8 @@ package Model;
 
 /**
  *
- * @author Jordan
+ * @author Praj
  */
-public class Show {
+public class DiningReservation {
     
 }
