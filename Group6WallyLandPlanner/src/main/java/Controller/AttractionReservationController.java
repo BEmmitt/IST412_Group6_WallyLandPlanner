@@ -4,10 +4,18 @@
  */
 package Controller;
 
+import Model.Attraction;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author bemmi
  */
 public class AttractionReservationController {
+    
+    List<Attraction> attractionList = new ArrayList<>();
+    
+    public boolean addAttraction(){return true;}
     
 }

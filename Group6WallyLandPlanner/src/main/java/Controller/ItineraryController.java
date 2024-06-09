@@ -4,10 +4,19 @@
  */
 package Controller;
 
+import Model.Itinerary;
+
 /**
  *
  * @author bemmi
  */
 public class ItineraryController {
     
+    Itinerary intinerary = new Itinerary();
+    
+    public boolean addReservation(){return true;}
+    
+    public boolean deleteReservation(){return true;}
+
+
 }

@@ -4,10 +4,24 @@
  */
 package View;
 
+import Controller.AttractionReservationController;
+import Controller.DiningController;
+import Controller.ShowReservationController;
+
 /**
  *
  * @author bemmi
  */
 public class ReservationView {
+    
+    AttractionReservationController attractionControl = new AttractionReservationController();
+    
+    DiningController diningControl = new DiningController();
+    
+    ShowReservationController showControl = new ShowReservationController();
+        
+    public void intitializeDisplay(){}
+    
+    public void placeComponents(){}
     
 }

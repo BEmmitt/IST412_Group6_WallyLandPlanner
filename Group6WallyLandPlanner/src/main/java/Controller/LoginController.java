@@ -5,7 +5,6 @@
 package Controller;
 
 import Model.User;
-import View.LoginView;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,9 @@ import java.util.List;
 public class LoginController {
     
     List<User> userList = new ArrayList<>();
-    LoginView view = new LoginView();
     
+    public void login(String username, String password){}
+    
+    public void registerUser(String username, String password){}
     
 }

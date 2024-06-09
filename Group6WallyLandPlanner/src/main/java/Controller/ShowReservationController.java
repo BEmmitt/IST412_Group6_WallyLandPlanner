@@ -4,7 +4,7 @@
  */
 package Controller;
 
-import Model.Restaurant;
+import Model.Show;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +12,13 @@ import java.util.List;
  *
  * @author bemmi
  */
-public class DiningController {
-
-    List<Restaurant> restaurantList = new ArrayList<>();
-        
-    public boolean addRestaurant(){return true;}
+public class ShowReservationController {
     
-    public boolean deleteRestaurant(){return true;}
+    List<Show> showList = new ArrayList<>();
+        
+    public boolean addShow(){return true;}
+    
+    public boolean deleteShow(){return true;}
 
 
 }

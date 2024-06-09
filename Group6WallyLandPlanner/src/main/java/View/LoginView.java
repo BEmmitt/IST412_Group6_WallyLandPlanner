@@ -4,11 +4,17 @@
  */
 package View;
 
+import Controller.LoginController;
+
 /**
  *
  * @author bemmi
  */
 public class LoginView {
     
+    LoginController loginControl = new LoginController();
     
+    public void intitializeDisplay(){}
+    
+    public void placeComponents(){}
 }
