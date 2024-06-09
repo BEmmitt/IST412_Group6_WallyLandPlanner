@@ -9,13 +9,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author bemmi
+ * Manages reservations for attractions.
+ * 
+ * @version 1.0
+ * @since 2024-06-09
+ * 
+ * @author: bemmi
  */
 public class AttractionReservationController {
     
     List<Attraction> attractionList = new ArrayList<>();
     
-    public boolean addAttraction(){return true;}
+    /**
+     * Adds an attraction to the list.
+     * 
+     * @param attraction the attraction to be added.
+     * @return true if the attraction was added successfully, false otherwise.
+     */
+    public boolean addAttraction(Attraction attraction) {
+        return attractionList.add(attraction);
+    }    
     
+    /**
+     * Removes an attraction from the list.
+     * 
+     * @param attraction the attraction to be removed.
+     * @return true if the attraction was removed successfully, false otherwise.
+     */
+    public boolean removeAttraction(Attraction attraction) {
+        return attractionList.remove(attraction);
+    }
+    
+    /**
+     * Gets the list of all attractions.
+     * 
+     * @return the list of all attractions.
+     */
+    public List<Attraction> getAttractions() {
+        return new ArrayList<>(attractionList);
+    }
+    
+    /**
+     * Checks if an attraction is available.
+     * 
+     * @param attraction the attraction to check.
+     * @return true if the attraction is available, false otherwise.
+     */
+    public boolean isAttractionAvailable(Attraction attraction) {
+        return attractionList.contains(attraction);
+    }
 }
