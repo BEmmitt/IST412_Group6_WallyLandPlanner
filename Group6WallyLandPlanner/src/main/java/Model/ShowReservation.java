@@ -25,6 +25,7 @@ public class ShowReservation extends Reservation {
      * 
      * @return the user who made the reservation.
      */
+    @Override
     public User getUser() {
         return user;
     }
@@ -34,6 +35,7 @@ public class ShowReservation extends Reservation {
      * 
      * @param user the user to set for the reservation.
      */
+    @Override
     public void setUser(User user) {
         this.user = user;
     }
@@ -61,6 +63,7 @@ public class ShowReservation extends Reservation {
      * 
      * @return the date of the reservation.
      */
+    @Override
     public Date getReserveDate() {
         return reserveDate;
     }
@@ -70,6 +73,7 @@ public class ShowReservation extends Reservation {
      * 
      * @param reserveDate the date to set for the reservation.
      */
+    @Override
     public void setReserveDate(Date reserveDate) {
         this.reserveDate = reserveDate;
     }   

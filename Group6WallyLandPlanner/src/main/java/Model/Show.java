@@ -16,8 +16,18 @@ public class Show {
     
     private String name;
     private Date date;
+    int capacity;
     private Date time;
+    
+    
+    public int getCapacity() {
+        return capacity;
+    }
 
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+    
     /**
      * Gets the name of the show.
      * 

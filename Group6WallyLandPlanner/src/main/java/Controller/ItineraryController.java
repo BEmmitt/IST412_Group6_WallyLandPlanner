@@ -5,6 +5,7 @@
 package Controller;
 
 import Model.Itinerary;
+import Model.Reservation;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class ItineraryController {
     
-    Itinerary intinerary = new Itinerary();
+    Itinerary itinerary = new Itinerary();
     
     /**
      * Adds a reservation to the itinerary.

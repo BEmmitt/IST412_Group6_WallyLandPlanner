@@ -14,7 +14,7 @@ import java.util.Date;
  * 
  * @author: bemmi
  */
-public class AttractionReservation {
+public class AttractionReservation extends Reservation{
     
     User user;
     Attraction attraction;
@@ -25,6 +25,7 @@ public class AttractionReservation {
      * 
      * @return the user who made the reservation.
      */
+    @Override
     public User getUser(){
         return user;
     }
@@ -34,6 +35,7 @@ public class AttractionReservation {
      * 
      * @param user the user to set for the reservation.
      */
+    @Override
     public void setUser(User user){
         this.user = user;
     }
@@ -61,6 +63,7 @@ public class AttractionReservation {
      * 
      * @return the date of the reservation.
      */
+    @Override
     public Date getReserveDate() {
         return reserveDate;
     }
@@ -70,6 +73,7 @@ public class AttractionReservation {
      * 
      * @param reserveDate the date to set for the reservation.
      */
+    @Override
     public void setReserveDate(Date reserveDate) {
         this.reserveDate = reserveDate;
     }
