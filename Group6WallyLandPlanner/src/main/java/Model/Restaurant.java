@@ -7,7 +7,10 @@ package Model;
 import java.util.List;
 
 /**
- *
+ * Shows information about Restaurants including Address and Ratings.
+ * 
+ * @version 1.0
+ * @since 2024-06-09
  * @author Praj
  */
 public class Restaurant {
