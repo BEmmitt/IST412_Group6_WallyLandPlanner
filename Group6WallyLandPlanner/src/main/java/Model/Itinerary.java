@@ -6,10 +6,12 @@ package Model;
 import java.util.List;
 
 /**
- *
- * @author pault
+ * Holds the information for the itinerary.
+ * 
  * @version 1.0
  * @since 2024-06-09
+ * @author pault
+ * 
  */
 public class Itinerary {
     

@@ -6,10 +6,12 @@ package Model;
 import java.util.Date;
 
 /**
- *
- * @author Paul
+ * Holds the information for the attractions.
+ * 
  * @version 1.0
  * @since 2024-06/09
+ * @author Paul
+ * 
  */
 public class Attraction {
     
