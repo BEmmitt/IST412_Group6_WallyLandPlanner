@@ -4,12 +4,16 @@
  */
 package View;
 
+import Controller.LoginController;
 import Controller.PlannerController;
 import Model.User;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 /**
@@ -17,14 +21,20 @@ import javax.swing.JScrollPane;
  * @author bemmi
  */
 public class PlannerView {
-    
+    LoginController loginController;
     PlannerController plannerControl = new PlannerController();
     private JFrame frame;
     private JList<String> list;
     private DefaultListModel<String> listModel;
+    
+     public void setLoginController(LoginController controller) {
+        this.loginController = controller;
+    }
 
      // Method to create the window with a space for a list
-    public void createWindow(User user) {
+    public void createWindow(User user, LoginController controller) {
+        setLoginController(controller);
+        
         frame = new JFrame(user.getUsername() + "'s Planner");
         frame.setSize(640, 480);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,8 +44,24 @@ public class PlannerView {
         list = new JList<>(listModel);
 
         JScrollPane listScrollPane = new JScrollPane(list);
-
         frame.add(listScrollPane, BorderLayout.CENTER);
+        
+         // Logout button
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.addActionListener((ActionEvent e) -> {
+            System.out.println("Logout button clicked"); // Debug statement
+            if (loginController != null) {
+                loginController.logout();
+            } else {
+                System.out.println("LoginController is null");
+            }
+        });
+
+        // Panel for the button
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BorderLayout());
+        buttonPanel.add(logoutButton, BorderLayout.EAST);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
     }
 
     // Method to display the window

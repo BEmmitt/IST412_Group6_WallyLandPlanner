@@ -59,11 +59,13 @@ public class LoginController {
         if (userList.contains(currentUser)) {
             loginView.setMessage("Login successful");
             System.out.println("Login successful");
+            
+            loggedInUser = currentUser;
 
             // Delay hiding the login window and showing the planner window
             javax.swing.Timer timer = new javax.swing.Timer(2000, (ActionEvent e) -> {
                 loginView.hideWindow();
-                plannerView.createWindow(currentUser);
+                plannerView.createWindow(currentUser, this);
                 plannerView.showWindow();
             });
             timer.setRepeats(false);
@@ -100,11 +102,14 @@ public class LoginController {
      * Logs out the currently logged in user
      */
     public void logout() {
+        System.out.println("Attempting to log out"); // Debug statement
         if (loggedInUser != null) {
             System.out.println("Logout successful, goodbye " + loggedInUser.getUsername() + ".");
             loggedInUser = null;
         } else {
-            System.out.println("No user is currently logged in.");
+            System.out.println("No user is currently logged in"); // Debug statement
         }
+        plannerView.hideWindow();
+        startLoginProcess();
     }
 }
