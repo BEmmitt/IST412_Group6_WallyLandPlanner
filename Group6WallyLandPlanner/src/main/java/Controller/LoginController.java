@@ -34,6 +34,8 @@ public class LoginController {
      * @param username the username of the user attempting to log in
      * @param password the password of the user attempting to log in
      */
+
+    //login method
     public void login(String username, String password) {
         for (User user : userList) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
@@ -41,6 +43,7 @@ public class LoginController {
                 System.out.println("Login successful!! Welcome " + username + ".");
                 return;
             }
+        
         }
         System.out.println("Login failed!! Invalid username or password.");
     }
