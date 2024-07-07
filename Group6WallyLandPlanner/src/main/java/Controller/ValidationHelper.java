@@ -5,7 +5,8 @@
 package Controller;
 
 /**
- *
+ * Contains methods for username and password validation.
+ * 
  * @author bemmi
  */
 public class ValidationHelper {
