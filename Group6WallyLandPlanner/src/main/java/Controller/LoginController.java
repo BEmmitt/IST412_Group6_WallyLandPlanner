@@ -5,6 +5,9 @@
 package Controller;
 
 import Model.User;
+import View.LoginView;
+import View.PlannerView;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,30 +22,50 @@ public class LoginController {
     
     private List<User> userList;
     private User loggedInUser;
+    private LoginView loginView;
+    private PlannerView plannerView;
 
     /**
      * Constructs a new LoginController with an empty user list
+     * @param loginView
+     * @param plannerView
+     * @param userList
      */
-    public LoginController() {
-        userList = new ArrayList<>();
-        loggedInUser = null;
+    public LoginController(LoginView loginView, PlannerView plannerView, List<User> userList) {
+        this.loginView = loginView;
+        this.plannerView = plannerView;
+        this.userList = userList;
+    }
+    
+    // Method to start the login process
+    public void startLoginProcess() {
+        loginView.createWindow(this);
+        loginView.showWindow();
     }
 
     /**
      * Logs in a user with the username/password
-     *
-     * @param username the username of the user attempting to log in
-     * @param password the password of the user attempting to log in
      */
-    public void login(String username, String password) {
-        for (User user : userList) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                loggedInUser = user;
-                System.out.println("Login successful!! Welcome " + username + ".");
-                return;
-            }
+    public void login() {
+        String username = loginView.getUsername();
+        String password = loginView.getPassword();
+        User currentUser = new User(username, password);
+        // Simulated user validation logic
+        if (userList.contains(currentUser)) {
+            loginView.setMessage("Login successful");
+            System.out.println("Login successful");
+
+            // Delay hiding the login window and showing the planner window
+            javax.swing.Timer timer = new javax.swing.Timer(2000, (ActionEvent e) -> {
+                loginView.hideWindow();
+                plannerView.createWindow();
+            });
+            timer.setRepeats(false);
+            timer.start();
+        } else {
+            loginView.setMessage("Login failed");
+            System.out.println("Login failed");
         }
-        System.out.println("Login failed!! Invalid username or password.");
     }
 
     /**
@@ -64,7 +87,7 @@ public class LoginController {
     }
 
     /**
-     * Logs out the currently loggedin user
+     * Logs out the currently logged in user
      */
     public void logout() {
         if (loggedInUser != null) {
@@ -73,21 +96,5 @@ public class LoginController {
         } else {
             System.out.println("No user is currently logged in.");
         }
-    }
-
-    /**
-     * Main method demonstrates the functionality of the LoginController class
-     *
-     * @param args command-line arguments
-     */
-    public static void main(String[] args) {
-        LoginController controller = new LoginController();
-
-        // Test cases
-        controller.registerUser("user1", "password01");
-        controller.login("user1", "password01");
-        controller.logout();
-        controller.login("user1", "badpassword");
-        controller.registerUser("user1", "password02");
     }
 }

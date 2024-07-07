@@ -4,6 +4,8 @@
 
 package com.mycompany.group6wallylandplanner;
 
+import Controller.Demo;
+
 /**
  *
  * @author bemmi
@@ -11,6 +13,6 @@ package com.mycompany.group6wallylandplanner;
 public class Group6WallyLandPlanner {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Demo.run();
     }
 }
