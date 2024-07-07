@@ -25,6 +25,10 @@ public class LoginView {
     private JButton loginButton;
     private JLabel messageLabel;
     
+    public void setLoginController(LoginController controller) {
+        this.loginControl = controller;
+    }
+    
     public void createWindow(LoginController controller)
     {
         frame = new JFrame("Login");

@@ -5,8 +5,8 @@
 package View;
 
 import Controller.PlannerController;
+import Model.User;
 import java.awt.BorderLayout;
-import static java.util.Collections.list;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -24,8 +24,8 @@ public class PlannerView {
     private DefaultListModel<String> listModel;
 
      // Method to create the window with a space for a list
-    public void createWindow() {
-        frame = new JFrame("List Display");
+    public void createWindow(User user) {
+        frame = new JFrame(user.getUsername() + "'s Planner");
         frame.setSize(640, 480);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());

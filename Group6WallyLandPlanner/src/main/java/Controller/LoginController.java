@@ -39,6 +39,7 @@ public class LoginController {
     
     // Method to start the login process
     public void startLoginProcess() {
+        loginView.setLoginController(this);
         loginView.createWindow(this);
         loginView.showWindow();
     }
@@ -50,6 +51,10 @@ public class LoginController {
         String username = loginView.getUsername();
         String password = loginView.getPassword();
         User currentUser = new User(username, password);
+        
+        // Debugging statements
+        System.out.println("Attempting login with username: " + username + " and password: " + password);
+
         // Simulated user validation logic
         if (userList.contains(currentUser)) {
             loginView.setMessage("Login successful");
@@ -58,7 +63,8 @@ public class LoginController {
             // Delay hiding the login window and showing the planner window
             javax.swing.Timer timer = new javax.swing.Timer(2000, (ActionEvent e) -> {
                 loginView.hideWindow();
-                plannerView.createWindow();
+                plannerView.createWindow(currentUser);
+                plannerView.showWindow();
             });
             timer.setRepeats(false);
             timer.start();
