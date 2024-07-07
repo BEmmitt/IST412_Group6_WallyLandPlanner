@@ -5,29 +5,36 @@
 package Model;
 
 /**
- * Represents a user with a username, email, and password.
- * Provides methods to get and set these attributes.
  * 
+ * The User class represents a user with a username and a password.
  * @author Jordan
  */
 public class User {
-
     private String username;
-    private String email;
     private String password;
 
     /**
-     * Gets the username of the user.
-     * 
-     * @return the username of the user
+     * Creates a new User with the required username and password.
+     *
+     * @param username the username of the user
+     * @param password the password of the user
      */
-    public String getUsername() {
-        return username;
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     /**
-     * Sets the username of the user.
-     * 
+     * Returns username of this user.
+     *
+     * @return the username of this user
+     */
+    public String getUsername() {
+        return username;}
+
+    /**
+     * Sets the username of this user.
+     *
      * @param username the new username of the user
      */
     public void setUsername(String username) {
@@ -35,26 +42,8 @@ public class User {
     }
 
     /**
-     * Gets the email of the user.
-     * 
-     * @return the email of the user
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Sets the email of the user.
-     * 
-     * @param email the new email of the user
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * Gets the password of the user.
-     * 
+     * Returns the password of this user.
+     *
      * @return the password of the user
      */
     public String getPassword() {
@@ -62,9 +51,9 @@ public class User {
     }
 
     /**
-     * Sets the password of the user.
-     * 
-     * @param password the new password of the user
+     * Sets the password of this user.
+     *
+     * @param password the new password of this user
      */
     public void setPassword(String password) {
         this.password = password;
