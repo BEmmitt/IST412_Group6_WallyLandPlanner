@@ -77,20 +77,24 @@ public class LoginController {
     /**
      * Registers a new user with username and password
      *
-     * @param username the desired username for the new user
-     * @param password the desired password for the new user
      */
-    public void registerUser(String username, String password) {
+     public void register() {
+        String username = loginView.getUsername();
+        String password = loginView.getPassword();
+
         for (User user : userList) {
             if (user.getUsername().equals(username)) {
-                System.out.println("Registration failed!! Username already exists.");
+                loginView.setMessage("Registration failed: Username already exists.");
+                System.out.println("Registration failed: Username already exists.");
                 return;
             }
         }
+        
         User newUser = new User(username, password);
         userList.add(newUser);
-        System.out.println("Registration successful!! You can now log in.");
-    }
+        loginView.setMessage("Registration successful. You can now log in.");
+        System.out.println("Registration successful. You can now log in.");
+     }
 
     /**
      * Logs out the currently logged in user

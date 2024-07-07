@@ -7,6 +7,7 @@ package Controller;
 import Model.User;
 import View.LoginView;
 import View.PlannerView;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,7 +21,8 @@ public class Demo {
    static PlannerView plannerView = new PlannerView();
         
    // List of valid users for the example
-   static List<User> userList = Arrays.asList(new User("testuser", "testpass"));
+   static List<User> userList = new ArrayList<>(Arrays.asList(new User("testuser", "testpass")));
+   
    
    static LoginController loginController = new LoginController(loginView, plannerView, userList);
     
