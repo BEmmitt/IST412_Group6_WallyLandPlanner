@@ -21,7 +21,8 @@ The classes utilized by this use case include:
     - Main (executes the Demo.run method)
 
 When the project is run, the user is prompted to enter their credentials in 
-order to login or register a new user. When the user successfully logs in, 
-a message confirming login success is displayed and the user is brought to the
-Planner View window. The Planner View window is still under development for a 
-future use case. It does have the option to logout. 
+order to login or register a new user. New users are saved to a users.json file 
+for future logins. When the user successfully logs in,a message confirming 
+login success is displayed and the user is brought to the Planner View window. 
+The Planner View window is still under development for a future use case. 
+It does have the option to logout. 

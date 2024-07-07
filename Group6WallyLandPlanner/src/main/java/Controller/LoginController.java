@@ -7,7 +7,16 @@ package Controller;
 import Model.User;
 import View.LoginView;
 import View.PlannerView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import java.lang.ProcessBuilder.Redirect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +29,7 @@ import java.util.List;
  */
 public class LoginController {
     
+    private static final String USER_DATA_FILE = "users.json";
     private List<User> userList;
     private User loggedInUser;
     private LoginView loginView;
@@ -34,10 +44,12 @@ public class LoginController {
     public LoginController(LoginView loginView, PlannerView plannerView, List<User> userList) {
         this.loginView = loginView;
         this.plannerView = plannerView;
-        this.userList = userList;
+        this.userList = loadUsers();
     }
     
-    // Method to start the login process
+    /*
+     * Method to start the login process
+     */
     public void startLoginProcess() {
         loginView.setLoginController(this);
         loginView.createWindow(this);
@@ -94,6 +106,7 @@ public class LoginController {
         
         User newUser = new User(username, password);
         userList.add(newUser);
+        saveUsers();
         loginView.setMessage("Registration successful. You can now log in.");
         System.out.println("Registration successful. You can now log in.");
      }
@@ -111,5 +124,27 @@ public class LoginController {
         }
         plannerView.hideWindow();
         startLoginProcess();
+    }
+    
+    private void saveUsers() {
+        try (Writer writer = new FileWriter(USER_DATA_FILE)) {
+            Gson gson = new Gson();
+            gson.toJson(userList, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<User> loadUsers() {
+        try (Reader reader = new FileReader(USER_DATA_FILE)) {
+            Gson gson = new Gson();
+            java.lang.reflect.Type userListType = new TypeToken<ArrayList<User>>() {}.getType();
+            return gson.fromJson(reader, userListType);
+        } catch (FileNotFoundException e) {
+            return new ArrayList<>(); // Return an empty list if the file is not found
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 }

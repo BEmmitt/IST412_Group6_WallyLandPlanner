@@ -14,7 +14,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
- *
+ * This class handles all the functionality for creating and displaying the
+ * LoginView window. It also handles user input.
+ * 
  * @author bemmi
  */
 public class LoginView {
@@ -30,7 +32,9 @@ public class LoginView {
     public void setLoginController(LoginController controller) {
         this.loginControl = controller;
     }
-    
+    /*
+     *   Method to create the Login Window
+    */
     public void createWindow(LoginController controller)
     {
         frame = new JFrame("Login");
@@ -90,32 +94,41 @@ public class LoginView {
             }
         });
     }
-            
-    // Method to display the window
+    /*        
+     * Method to display the window
+     */
     public void showWindow() {
         if (frame != null) {
             frame.setVisible(true);
         }
     }
 
-    // Method to hide the window
+    /*
+     * Method to hide the window
+     */
     public void hideWindow() {
         if (frame != null) {
             frame.setVisible(false);
         }
     }
 
-    // Getter for the username
+    /*
+     * Getter for the username
+     */
     public String getUsername() {
         return userText.getText();
     }
 
-    // Getter for the password
+    /*
+     * Getter for the password
+     */
     public String getPassword() {
         return passwordText.getText();
     }
 
-    // Method to set the message label text
+    /*
+     * Method to set the message label text
+     */
     public void setMessage(String message) {
         if (messageLabel != null) {
             messageLabel.setText(message);

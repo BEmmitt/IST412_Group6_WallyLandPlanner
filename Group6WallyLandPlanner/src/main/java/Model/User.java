@@ -4,6 +4,7 @@
  */
 package Model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Objects;
  * The User class represents a user with a username and a password.
  * @author Jordan
  */
-public class User {
+public class User implements Serializable {
     private String username;
     private String password;
 
