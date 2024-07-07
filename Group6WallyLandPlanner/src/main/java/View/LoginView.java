@@ -79,7 +79,7 @@ public class LoginView {
         frame.add(registerButton);
         
         messageLabel = new JLabel("");
-        messageLabel.setBounds(50, 180, 250, 25);
+        messageLabel.setBounds(50, 180, 500, 25);
         frame.add(messageLabel);
         
         loginButton.addActionListener((ActionEvent e) -> {

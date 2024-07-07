@@ -16,7 +16,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
-import java.lang.ProcessBuilder.Redirect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +82,7 @@ public class LoginController {
             timer.setRepeats(false);
             timer.start();
         } else {
-            loginView.setMessage("Login failed");
+            loginView.setMessage("Login failed. Please try again or register a new account.");
             System.out.println("Login failed");
         }
     }
@@ -104,11 +103,29 @@ public class LoginController {
             }
         }
         
+        if (!ValidationHelper.isValidUsername(username)) {
+            loginView.setMessage("Registration failed: Invalid username. Username cannot be blank.");
+            System.out.println("Registration failed: Invalid username. Username cannot be blank.");
+            return;
+        }
+        
+        if (!ValidationHelper.isValidPassword(password)) {
+            loginView.setMessage("Registration failed: Invalid password. Password cannot be blank.");
+            System.out.println("Registration failed: Invalid password. Password cannot be blank.");
+            return;
+        }
+        
+    try {
         User newUser = new User(username, password);
         userList.add(newUser);
         saveUsers();
         loginView.setMessage("Registration successful. You can now log in.");
         System.out.println("Registration successful. You can now log in.");
+    } catch (Exception e) {
+        loginView.setMessage("Registration failed: An unexpected error occurred.");
+        System.err.println("Registration failed: " + e.getMessage());
+        e.printStackTrace();
+    }
      }
 
     /**
