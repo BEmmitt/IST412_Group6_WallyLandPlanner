@@ -12,75 +12,49 @@ import java.util.Date;
  * 
  * @author Jordan
  */
-public class Show {
-    
-    private String name;
-    private Date date;
-    int capacity;
-    private Date time;
-    
-    
-    public int getCapacity() {
-        return capacity;
-    }
+public class Show extends Attraction {
+    private String showTime;
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-    
     /**
-     * Gets the name of the show.
+     * Constructs a new Show object.
      * 
-     * @return the name of the show
+     * @param name the name of the show.
+     * @param location the location of the show.
+     * @param description the description of the show.
+     * @param showTime the show time of the show.
      */
-    public String getName() {
-        return name;
+    public Show(String name, String location, String description, String showTime) {
+        setName(name);
+        setLocation(location);
+        setDescription(description);
+        this.showTime = showTime;
     }
 
     /**
-     * Sets the name of the show.
+     * Gets the show time of the show.
      * 
-     * @param name the new name of the show
+     * @return the show time.
      */
-    public void setName(String name) {
-        this.name = name;
+    public String getShowTime() {
+        return showTime;
     }
 
     /**
-     * Gets the date of the show.
+     * Sets the show time of the show.
      * 
-     * @return the date of the show
+     * @param showTime the show time to set.
      */
-    public Date getDate() {
-        return date;
+    public void setShowTime(String showTime) {
+        this.showTime = showTime;
     }
 
     /**
-     * Sets the date of the show.
+     * Gets the type of the attraction.
      * 
-     * @param date the new date of the show
+     * @return the attraction type.
      */
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    /**
-     * Gets the time of the show.
-     * 
-     * @return the time of the show
-     */
-    public Date getTime() {
-        return time;
-    }
-
-    /**
-     * Sets the time of the show.
-     * 
-     * @param time the new time of the show
-     */
-    public void setTime(Date time) {
-        this.time = time;
+    @Override
+    public String getAttractionType() {
+        return "Show";
     }
 }
-
-
