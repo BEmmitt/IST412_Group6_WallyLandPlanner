@@ -50,5 +50,7 @@ public class PlannerController {
         return planner.getAttractions();
     }
 
-    
+    public Planner getPlanner(){
+        return planner;
+    }
 }

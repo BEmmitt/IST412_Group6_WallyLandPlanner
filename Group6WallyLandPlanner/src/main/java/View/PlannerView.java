@@ -4,11 +4,13 @@
  */
 package View;
 
+import Controller.AttractionController;
 import Controller.LoginController;
 import Controller.PlannerController;
 import Model.Attraction;
 import Model.User;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.util.List;
@@ -46,6 +48,7 @@ public class PlannerView {
         frame.setSize(960, 720);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+        frame.setMinimumSize(new Dimension(640, 480));
 
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
@@ -70,18 +73,19 @@ public class PlannerView {
         
         JButton reservationButton = new JButton("Add a new Reservation");
         reservationButton.addActionListener((ActionEvent e) -> {
-            ReservationView reservationView = new ReservationView();
-            //reservationView.createWindow();
+            AttractionController attractionController = new AttractionController();
+            AttractionView attractionView = new AttractionView(attractionController, plannerController.getPlanner());
+            attractionView.createWindow();
+            this.hideWindow();
         });
-
         // Panel for the reservation and logout buttons with FlowLayout to position them side by side
         JPanel buttonPanel = new JPanel(new BorderLayout());
         
-        reservationButton = new JButton("Add a new Reservation");
-        reservationButton.addActionListener((ActionEvent e) -> {
-            ReservationView reservationView = new ReservationView();
-            // reservationView.createWindow();
-        });
+//        reservationButton = new JButton("Add a new Reservation");
+//        reservationButton.addActionListener((ActionEvent e) -> {
+//            //AttractionView reservationView = new AttractionView();
+//            // reservationView.createWindow();
+//        });
         buttonPanel.add(reservationButton, BorderLayout.WEST);
 
         JButton logoutButton = new JButton("Logout");

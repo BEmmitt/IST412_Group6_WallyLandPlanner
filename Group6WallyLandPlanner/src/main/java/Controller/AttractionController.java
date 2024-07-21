@@ -5,8 +5,7 @@
 package Controller;
 
 import Model.Show;
-import Model.ShowReservation;
-import View.ReservationView;
+import View.AttractionView;
 
 import java.util.Date;
 
@@ -14,3 +13,5 @@ import java.util.Date;
  *
  * @author pault
  */
+public class AttractionController{
+}
