@@ -7,15 +7,6 @@ package Controller;
 import Model.Attraction;
 import Model.Planner;
 import Model.User;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
 import java.util.List;
 
 /**
@@ -30,7 +21,6 @@ public class PlannerController {
     
     User user;
     Planner planner;
-    Gson gson;
     
     public PlannerController(User user) {
         this.user = user;

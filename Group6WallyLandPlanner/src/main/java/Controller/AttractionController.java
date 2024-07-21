@@ -8,9 +8,7 @@ import Model.Attraction;
 import Model.Planner;
 import Model.Ride;
 import Model.Show;
-import View.AttractionView;
 import View.PlannerView;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -31,22 +29,7 @@ public class AttractionController {
     
     public AttractionController() {
         this.attractionList = new ArrayList<>();
-                
-//   public AttractionController(AttractionView view, Planner planner) {
-//        this.view = view;
-//        this.planner = planner;
-//        loadAttractionsFromFile("attractions.txt");
-//    }
-                
-                // Method to load attractions from a file
-                
     }
-
-//   public AttractionController(AttractionView view, Planner planner) {
-//        this.view = view;
-//        this.planner = planner;
-//        loadAttractionsFromFile("attractions.txt");
-//    }
 
     // Method to load attractions from a file
     public void loadAttractionsFromFile(String filename) {
@@ -83,14 +66,8 @@ public class AttractionController {
     public void addAttraction(Attraction attraction) {
         if (!attractionList.contains(attraction)) {
             attractionList.add(attraction);
-           // updateAttractionView();
         }
     }
-
-    // Updates the view with the latest list of attractions
-//    public void updateAttractionView() {
-//        view.updateList();
-//    }
     
     public List<Attraction> getAttractions() {
         return attractionList;
