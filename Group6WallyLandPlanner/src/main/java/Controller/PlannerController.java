@@ -4,7 +4,8 @@
  */
 package Controller;
 
-import Model.Itinerary;
+import Model.Attraction;
+import Model.Planner;
 import Model.Reservation;
 import java.util.List;
 
@@ -18,26 +19,26 @@ import java.util.List;
  */
 public class PlannerController {
     
-    Itinerary itinerary = new Itinerary();
+    Planner planner = new Planner();
     
     /**
      * Adds a reservation to the itinerary.
      * 
-     * @param reservation the reservation to be added.
+     * @param attraction the reservation to be added.
      * @return true if the reservation was added successfully, false otherwise.
      */
-    public boolean addReservation(Reservation reservation) {
-        return itinerary.getReservations().add(reservation);
+    public boolean addAttraction(Attraction attraction) {
+        return planner.getAttractions().add(attraction);
     }
 
     /**
      * Removes a reservation from the itinerary.
      * 
-     * @param reservation the reservation to be removed.
+     * @param attraction the attraction to be removed.
      * @return true if the reservation was removed successfully, false otherwise.
      */
-    public boolean removeReservation(Reservation reservation) {
-        return itinerary.getReservations().remove(reservation);
+    public boolean removeAttraction(Attraction attraction) {
+        return planner.getAttractions().remove(attraction);
     }
 
     /**
@@ -45,17 +46,9 @@ public class PlannerController {
      * 
      * @return the list of reservations in the itinerary.
      */
-    public List<Reservation> getReservations() {
-        return itinerary.getReservations();
+    public List<Attraction> getReservations() {
+        return planner.getAttractions();
     }
 
-    /**
-     * Checks if a reservation is in the itinerary.
-     * 
-     * @param reservation the reservation to check.
-     * @return true if the reservation is in the itinerary, false otherwise.
-     */
-    public boolean isResInItin(Reservation reservation) {
-        return itinerary.getReservations().contains(reservation);
-    }
+    
 }

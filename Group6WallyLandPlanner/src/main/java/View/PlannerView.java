@@ -6,8 +6,10 @@ package View;
 
 import Controller.LoginController;
 import Controller.PlannerController;
+import Model.Attraction;
 import Model.User;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -24,8 +26,8 @@ public class PlannerView {
     LoginController loginController;
     PlannerController plannerControl = new PlannerController();
     private JFrame frame;
-    private JList<String> list;
-    private DefaultListModel<String> listModel;
+    private JList<Attraction> list;
+    private DefaultListModel<Attraction> listModel;
     
      public void setLoginController(LoginController controller) {
         this.loginController = controller;
@@ -42,9 +44,21 @@ public class PlannerView {
 
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
+        updateList();
 
         JScrollPane listScrollPane = new JScrollPane(list);
         frame.add(listScrollPane, BorderLayout.CENTER);
+        
+        JButton reservationButton = new JButton("Add a new Reservation");
+        reservationButton.addActionListener((ActionEvent e) -> {
+            ReservationView reservationView = new ReservationView();
+            //reservationView.createWindow();
+        });
+
+        // Panel for the reservation button with FlowLayout to center the button
+        JPanel reservationPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        reservationPanel.add(reservationButton);
+        frame.add(reservationPanel, BorderLayout.NORTH);
         
          // Logout button
         JButton logoutButton = new JButton("Logout");
@@ -79,8 +93,15 @@ public class PlannerView {
     }
 
     // Method to add items to the list
-    public void addItem(String item) {
-        listModel.addElement(item);
+    public void addItem(Attraction attraction) {
+        listModel.addElement(attraction);
+    }
+    
+    public void updateList() {
+        listModel.clear();
+        for (Attraction attraction : plannerControl.getReservations()) {
+            listModel.addElement(attraction);
+        }
     }
 
     // Method to clear the list

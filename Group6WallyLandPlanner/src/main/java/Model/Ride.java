@@ -4,10 +4,23 @@
  */
 package Model;
 
+import java.util.Date;
+
 /**
  *
  * @author bemmi
  */
 public class Ride {
     
+    private int thrillLevel;
+
+    
+    public int getThrillLevel() {
+        return thrillLevel;
+    }
+
+    public void setThrillLevel(int thrillLevel) {
+        this.thrillLevel = thrillLevel;
+    }
+   
 }
