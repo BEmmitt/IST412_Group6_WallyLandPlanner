@@ -16,7 +16,7 @@ import java.util.List;
  * 
  * @author: bemmi
  */
-public class ItineraryController {
+public class PlannerController {
     
     Itinerary itinerary = new Itinerary();
     
@@ -55,7 +55,7 @@ public class ItineraryController {
      * @param reservation the reservation to check.
      * @return true if the reservation is in the itinerary, false otherwise.
      */
-    public boolean isReservationInItinerary(Reservation reservation) {
+    public boolean isResInItin(Reservation reservation) {
         return itinerary.getReservations().contains(reservation);
     }
 }

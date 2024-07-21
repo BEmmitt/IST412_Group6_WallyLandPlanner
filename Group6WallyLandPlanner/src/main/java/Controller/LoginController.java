@@ -5,6 +5,17 @@
 package Controller;
 
 import Model.User;
+import View.LoginView;
+import View.PlannerView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,80 +28,140 @@ import java.util.List;
  */
 public class LoginController {
     
+    private static final String USER_DATA_FILE = "users.json";
     private List<User> userList;
     private User loggedInUser;
+    private LoginView loginView;
+    private PlannerView plannerView;
 
     /**
      * Constructs a new LoginController with an empty user list
+     * @param loginView
+     * @param plannerView
+     * @param userList
      */
-    public LoginController() {
-        userList = new ArrayList<>();
-        loggedInUser = null;
+    public LoginController(LoginView loginView, PlannerView plannerView, List<User> userList) {
+        this.loginView = loginView;
+        this.plannerView = plannerView;
+        this.userList = loadUsers();
+    }
+    
+    /*
+     * Method to start the login process
+     */
+    public void startLoginProcess() {
+        loginView.setLoginController(this);
+        loginView.createWindow(this);
+        loginView.showWindow();
     }
 
     /**
      * Logs in a user with the username/password
-     *
-     * @param username the username of the user attempting to log in
-     * @param password the password of the user attempting to log in
      */
-
-    //login method
-    public void login(String username, String password) {
-        for (User user : userList) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                loggedInUser = user;
-                System.out.println("Login successful!! Welcome " + username + ".");
-                return;
-            }
+    public void login() {
+        String username = loginView.getUsername();
+        String password = loginView.getPassword();
+        User currentUser = new User(username, password);
         
+        // Debugging statements
+        System.out.println("Attempting login with username: " + username + " and password: " + password);
+
+        // Simulated user validation logic
+        if (userList.contains(currentUser)) {
+            loginView.setMessage("Login successful");
+            System.out.println("Login successful");
+            
+            loggedInUser = currentUser;
+
+            // Delay hiding the login window and showing the planner window
+            javax.swing.Timer timer = new javax.swing.Timer(2000, (ActionEvent e) -> {
+                loginView.hideWindow();
+                plannerView.createWindow(currentUser, this);
+                plannerView.showWindow();
+            });
+            timer.setRepeats(false);
+            timer.start();
+        } else {
+            loginView.setMessage("Login failed. Please try again or register a new account.");
+            System.out.println("Login failed");
         }
-        System.out.println("Login failed!! Invalid username or password.");
     }
 
     /**
      * Registers a new user with username and password
      *
-     * @param username the desired username for the new user
-     * @param password the desired password for the new user
      */
-    public void registerUser(String username, String password) {
+     public void register() {
+        String username = loginView.getUsername();
+        String password = loginView.getPassword();
+
         for (User user : userList) {
             if (user.getUsername().equals(username)) {
-                System.out.println("Registration failed!! Username already exists.");
+                loginView.setMessage("Registration failed: Username already exists.");
+                System.out.println("Registration failed: Username already exists.");
                 return;
             }
         }
+        
+        if (!ValidationHelper.isValidUsername(username)) {
+            loginView.setMessage("Registration failed: Invalid username. Username cannot be blank.");
+            System.out.println("Registration failed: Invalid username. Username cannot be blank.");
+            return;
+        }
+        
+        if (!ValidationHelper.isValidPassword(password)) {
+            loginView.setMessage("Registration failed: Invalid password. Password cannot be blank.");
+            System.out.println("Registration failed: Invalid password. Password cannot be blank.");
+            return;
+        }
+        
+    try {
         User newUser = new User(username, password);
         userList.add(newUser);
-        System.out.println("Registration successful!! You can now log in.");
+        saveUsers();
+        loginView.setMessage("Registration successful. You can now log in.");
+        System.out.println("Registration successful. You can now log in.");
+    } catch (Exception e) {
+        loginView.setMessage("Registration failed: An unexpected error occurred.");
+        System.err.println("Registration failed: " + e.getMessage());
+        e.printStackTrace();
     }
+     }
 
     /**
-     * Logs out the currently loggedin user
+     * Logs out the currently logged in user
      */
     public void logout() {
+        System.out.println("Attempting to log out"); // Debug statement
         if (loggedInUser != null) {
             System.out.println("Logout successful, goodbye " + loggedInUser.getUsername() + ".");
             loggedInUser = null;
         } else {
-            System.out.println("No user is currently logged in.");
+            System.out.println("No user is currently logged in"); // Debug statement
+        }
+        plannerView.hideWindow();
+        startLoginProcess();
+    }
+    
+    private void saveUsers() {
+        try (Writer writer = new FileWriter(USER_DATA_FILE)) {
+            Gson gson = new Gson();
+            gson.toJson(userList, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    /**
-     * Main method demonstrates the functionality of the LoginController class
-     *
-     * @param args command-line arguments
-     */
-    public static void main(String[] args) {
-        LoginController controller = new LoginController();
-
-        // Test cases
-        controller.registerUser("user1", "password01");
-        controller.login("user1", "password01");
-        controller.logout();
-        controller.login("user1", "badpassword");
-        controller.registerUser("user1", "password02");
+    private List<User> loadUsers() {
+        try (Reader reader = new FileReader(USER_DATA_FILE)) {
+            Gson gson = new Gson();
+            java.lang.reflect.Type userListType = new TypeToken<ArrayList<User>>() {}.getType();
+            return gson.fromJson(reader, userListType);
+        } catch (FileNotFoundException e) {
+            return new ArrayList<>(); // Return an empty list if the file is not found
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 }
