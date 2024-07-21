@@ -35,6 +35,7 @@ public class PlannerView {
     private JTextField searchField;
     private JButton searchButton;
     private JButton clearButton;
+    private JButton deleteButton;
     
      public void setLoginController(LoginController controller) {
         this.loginController = controller;
@@ -95,6 +96,11 @@ public class PlannerView {
             }
         });
         buttonPanel.add(logoutButton, BorderLayout.EAST);
+        
+        deleteButton = new JButton("Delete Reservation");
+        deleteButton.addActionListener((ActionEvent e) -> deleteItem(list.getSelectedValue()));
+      
+        buttonPanel.add(deleteButton, BorderLayout.CENTER);
 
         frame.add(buttonPanel, BorderLayout.SOUTH);
     }
@@ -116,6 +122,11 @@ public class PlannerView {
     // Method to add items to the list
     public void addItem(Attraction attraction) {
         listModel.addElement(attraction);
+    }
+    
+    public void deleteItem(Attraction attraction) {
+        listModel.removeElement(attraction);
+        plannerController.removeAttraction(attraction);
     }
     
     public void updateList() {

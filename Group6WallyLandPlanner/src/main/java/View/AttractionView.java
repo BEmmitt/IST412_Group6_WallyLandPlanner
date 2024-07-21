@@ -33,6 +33,7 @@ public class AttractionView {
     private JButton searchButton;
     private JButton clearButton;
     private JButton addButton;
+    private JButton returnButton;
 
      public AttractionView(AttractionController attractionController, Planner planner, PlannerController plannerController, PlannerView plannerView) {
         this.attractionController = attractionController;
@@ -76,7 +77,10 @@ public class AttractionView {
         JPanel buttonPanel = new JPanel(new BorderLayout());
         addButton = new JButton("Reserve Attraction");
         addButton.addActionListener((ActionEvent e) -> addReservation());
-        buttonPanel.add(addButton);
+        buttonPanel.add(addButton, BorderLayout.WEST);
+        
+        returnButton = new JButton("Back");
+        returnButton.addActionListener(ActionEvent e) -> 
         
         frame.add(buttonPanel, BorderLayout.SOUTH);
     }
