@@ -3,21 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model;
-import java.util.Date;
 
 /**
- * Holds the information for the attractions.
+ * Abstract class to hold the information for general attractions.
  * 
  * @version 1.0
  * @since 2024-06/09
  * @author Paul
  * 
  */
-public class Attraction {
+public abstract class Attraction {
     
     private String name;
-    private int capacity;
-    private Date timeSlot;
+    private String location;
+    private String description;
          
  /**
  * Gets the name of the attraction.
@@ -42,48 +41,50 @@ public class Attraction {
     }
     
  /**
- * Gets the capacity of the attraction.
+ * Gets the location of the attraction.
  * 
- * @return the capacity.
+ * @return the location.
  */
     
-    public int getCapacity()
+    public String getLocation()
     {
-        return capacity;
+        return location;
     }
     
 /**
- * Sets the capacity of the attraction.
+ * Sets the location of the attraction.
  * 
- * @param capacity the capacity of the attraction.
+ * @param location the location of the attraction.
  */
     
     
-    public void setCapacity(int capacity)
+    public void setLocation(String location)
     {
-        this.capacity=capacity;
+        this.location=location;
     }
     
         /**
- * Gets the time slots for the attraction.
+ * Gets the description for the attraction.
  * 
- * @return the time slots.
+ * @return the description.
  */
     
-    public Date getTimeSlot()
+    public String getDescription()
     {
-        return timeSlot;
+        return description;
     }
     
  /**
- * Sets the time slots for the attraction.
+ * Sets the description for the attraction.
  * 
- * @param timeSlot the time slots for the attraction.
+ * @param description the description for the attraction.
  */
     
     
-    public void setTimeSlot(Date timeSlot)
+    public void setDescription(String description)
     {
-        this.timeSlot=timeSlot;
+        this.description=description;
     }
+    
+    public abstract String getAttractionType();
 }
