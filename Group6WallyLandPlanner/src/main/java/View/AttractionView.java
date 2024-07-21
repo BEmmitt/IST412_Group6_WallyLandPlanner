@@ -37,6 +37,7 @@ public class AttractionView {
 
     // Method to create the window with a space for a list
     public void createWindow() {
+        attractionController.loadAttractionsFromFile("attractions.txt");
         frame = new JFrame("Attractions");
         frame.setSize(960, 720);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,7 +71,7 @@ public class AttractionView {
     // Method to update the list with all attractions
     public void updateList() {
         listModel.clear();
-        List<Attraction> attractions = planner.getAttractions();
+        List<Attraction> attractions = attractionController.getAttractions();
         for (Attraction attraction : attractions) {
             listModel.addElement(attraction);
         }

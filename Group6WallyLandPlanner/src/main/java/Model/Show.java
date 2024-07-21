@@ -57,4 +57,10 @@ public class Show extends Attraction {
     public String getAttractionType() {
         return "Show";
     }
+    
+        @Override
+    public String toString() {
+        return ("Type: " + getAttractionType() + " | Name: " + getName() + " | Location: " + getLocation() + " | Description: " + getDescription() + " | Show Time: " + getShowTime());
+                
+    }
 }

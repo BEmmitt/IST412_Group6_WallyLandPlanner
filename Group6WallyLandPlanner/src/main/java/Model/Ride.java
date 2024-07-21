@@ -21,11 +21,11 @@ public class Ride extends Attraction {
      * @param description the description of the ride.
      * @param thrillLevel the thrill level of the ride.
      */
-    public Ride(String name, String location, String description, int thrillLevel) {
+    public Ride(String name, String location, String description, String thrillLevel) {
         setName(name);
         setLocation(location);
         setDescription(description);
-        this.thrillLevel = thrillLevel;
+        this.thrillLevel = Integer.parseInt(thrillLevel);
     }
 
     /**
@@ -54,5 +54,11 @@ public class Ride extends Attraction {
     @Override
     public String getAttractionType() {
         return "Ride";
+    }
+    
+    @Override
+    public String toString() {
+        return ("Type: " + getAttractionType() + " | Name: " + getName() + " | Location: " + getLocation() + " | Description: " + getDescription() + " | Thrill Level: " + getThrillLevel());
+                
     }
 }

@@ -1,0 +1,10 @@
+Ride,Roller Coaster,Park A,A thrilling roller coaster,5,
+Ride,Log Flume,Park B,A fun log flume ride,3,
+Ride,Ferris Wheel,Park C,A giant ferris wheel,2,
+Ride,Bumper Cars,Park D,Exciting bumper cars,4,
+Ride,Drop Tower,Park E,An exhilarating drop tower ride,5,
+Show,Magic Show,Theater A,An amazing magic show, 12:00 PM
+Show,Comedy Show,Theater B,A hilarious comedy show, 2:00 PM
+Show,Musical Performance,Theater C,A spectacular musical performance,4:00 PM
+Show,Circus Act,Theater D,A thrilling circus act,6:00 PM
+Show,Drama Play,Theater E,An engaging drama play,8:00 PM
