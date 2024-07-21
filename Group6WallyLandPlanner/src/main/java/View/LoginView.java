@@ -5,6 +5,7 @@
 package View;
 
 import Controller.LoginController;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
@@ -41,6 +42,7 @@ public class LoginView {
         frame.setSize(640, 480);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
+        frame.setMinimumSize(new Dimension(640, 480));
         
         // Banner message
         JLabel bannerLabel = new JLabel("Welcome to the WallyLand Planner Application!");

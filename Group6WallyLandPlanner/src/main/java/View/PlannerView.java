@@ -11,12 +11,14 @@ import Model.User;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -24,10 +26,13 @@ import javax.swing.JScrollPane;
  */
 public class PlannerView {
     LoginController loginController;
-    PlannerController plannerControl = new PlannerController();
+    PlannerController plannerController = new PlannerController();
     private JFrame frame;
     private JList<Attraction> list;
     private DefaultListModel<Attraction> listModel;
+    private JTextField searchField;
+    private JButton searchButton;
+    private JButton clearButton;
     
      public void setLoginController(LoginController controller) {
         this.loginController = controller;
@@ -38,7 +43,7 @@ public class PlannerView {
         setLoginController(controller);
         
         frame = new JFrame(user.getUsername() + "'s Planner");
-        frame.setSize(640, 480);
+        frame.setSize(960, 720);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
@@ -49,32 +54,44 @@ public class PlannerView {
         JScrollPane listScrollPane = new JScrollPane(list);
         frame.add(listScrollPane, BorderLayout.CENTER);
         
+        // Search panel
+        JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        searchField = new JTextField(20);
+        searchButton = new JButton("Search");
+        clearButton = new JButton("Clear");
+        
+        searchButton.addActionListener((ActionEvent e) -> performSearch());
+        clearButton.addActionListener((ActionEvent e) -> clearSearch());
+
+        searchPanel.add(searchField);
+        searchPanel.add(searchButton);
+        searchPanel.add(clearButton);
+        frame.add(searchPanel, BorderLayout.NORTH);
+        
         JButton reservationButton = new JButton("Add a new Reservation");
         reservationButton.addActionListener((ActionEvent e) -> {
             ReservationView reservationView = new ReservationView();
             //reservationView.createWindow();
         });
 
-        // Panel for the reservation button with FlowLayout to center the button
-        JPanel reservationPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        reservationPanel.add(reservationButton);
-        frame.add(reservationPanel, BorderLayout.NORTH);
+        // Panel for the reservation and logout buttons with FlowLayout to position them side by side
+        JPanel buttonPanel = new JPanel(new BorderLayout());
         
-         // Logout button
+        reservationButton = new JButton("Add a new Reservation");
+        reservationButton.addActionListener((ActionEvent e) -> {
+            ReservationView reservationView = new ReservationView();
+            // reservationView.createWindow();
+        });
+        buttonPanel.add(reservationButton, BorderLayout.WEST);
+
         JButton logoutButton = new JButton("Logout");
         logoutButton.addActionListener((ActionEvent e) -> {
-            System.out.println("Logout button clicked"); // Debug statement
             if (loginController != null) {
                 loginController.logout();
-            } else {
-                System.out.println("LoginController is null");
             }
         });
-
-        // Panel for the button
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BorderLayout());
         buttonPanel.add(logoutButton, BorderLayout.EAST);
+
         frame.add(buttonPanel, BorderLayout.SOUTH);
     }
 
@@ -99,7 +116,7 @@ public class PlannerView {
     
     public void updateList() {
         listModel.clear();
-        for (Attraction attraction : plannerControl.getReservations()) {
+        for (Attraction attraction : plannerController.getReservations()) {
             listModel.addElement(attraction);
         }
     }
@@ -109,4 +126,26 @@ public class PlannerView {
         listModel.clear();
     }
     
+    // Method to perform search and update the list
+    private void performSearch() {
+        String searchTerm = searchField.getText().trim().toLowerCase();
+        if (searchTerm.isEmpty()) {
+            updateList();
+            return;
+        }
+
+        listModel.clear();
+        List<Attraction> attractions = plannerController.getReservations();
+        for (Attraction attraction : attractions) {
+            if (attraction.getName().toLowerCase().contains(searchTerm)) {
+                listModel.addElement(attraction);
+            }
+        }
+    }
+    
+    // Method to clear the search field and update the list
+    private void clearSearch() {
+        searchField.setText("");
+        updateList();
+    }
 }

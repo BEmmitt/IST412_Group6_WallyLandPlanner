@@ -4,14 +4,11 @@
  */
 package Model;
 
-import java.util.Date;
-
 /**
  *
  * @author bemmi
  * @author Jordan
  */
-package Model;
 
 public class Ride extends Attraction {
     private int thrillLevel;
