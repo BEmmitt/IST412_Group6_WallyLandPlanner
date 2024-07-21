@@ -33,6 +33,7 @@ public class LoginController {
     private User loggedInUser;
     private LoginView loginView;
     private PlannerView plannerView;
+    private PlannerController plannerController;
 
     /**
      * Constructs a new LoginController with an empty user list
@@ -44,6 +45,7 @@ public class LoginController {
         this.loginView = loginView;
         this.plannerView = plannerView;
         this.userList = loadUsers();
+        this.plannerController = null;
     }
     
     /*
@@ -71,8 +73,9 @@ public class LoginController {
             loginView.setMessage("Login successful");
             System.out.println("Login successful");
             
-            loggedInUser = currentUser;
-
+            loggedInUser = currentUser;            
+            plannerController = new PlannerController(loggedInUser);
+            
             // Delay hiding the login window and showing the planner window
             javax.swing.Timer timer = new javax.swing.Timer(2000, (ActionEvent e) -> {
                 loginView.hideWindow();

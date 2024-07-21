@@ -6,7 +6,16 @@ package Controller;
 
 import Model.Attraction;
 import Model.Planner;
-import Model.Reservation;
+import Model.User;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.List;
 
 /**
@@ -19,8 +28,16 @@ import java.util.List;
  */
 public class PlannerController {
     
-    Planner planner = new Planner();
+    User user;
+    Planner planner;
+    Gson gson;
     
+    public PlannerController(User user) {
+        this.user = user;
+        this.planner = Planner.loadPlanner(user.getUsername(), user);
+        System.out.println("PlannerController initialized for user: " + user.getUsername());
+        
+    }
     /**
      * Adds a reservation to the itinerary.
      * 
@@ -28,7 +45,9 @@ public class PlannerController {
      * @return true if the reservation was added successfully, false otherwise.
      */
     public boolean addAttraction(Attraction attraction) {
-        return planner.getAttractions().add(attraction);
+        boolean result = planner.getAttractions().add(attraction);
+        planner.savePlanner(user.getUsername());
+        return result;
     }
 
     /**
@@ -38,7 +57,9 @@ public class PlannerController {
      * @return true if the reservation was removed successfully, false otherwise.
      */
     public boolean removeAttraction(Attraction attraction) {
-        return planner.getAttractions().remove(attraction);
+        boolean result = planner.getAttractions().remove(attraction);
+        planner.savePlanner(user.getUsername());
+        return result;
     }
 
     /**
@@ -51,6 +72,11 @@ public class PlannerController {
     }
 
     public Planner getPlanner(){
+        if (planner.getUser() == null) {
+            planner.setUser(user);
+        }
         return planner;
     }
+    
+    
 }

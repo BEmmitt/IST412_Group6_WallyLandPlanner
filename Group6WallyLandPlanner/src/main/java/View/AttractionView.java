@@ -12,6 +12,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -47,9 +49,17 @@ public class AttractionView {
         attractionController.loadAttractionsFromFile("attractions.txt");
         frame = new JFrame("Attractions");
         frame.setSize(960, 720);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e){
+                backToPlannerView();
+            }
+        });
         frame.setLayout(new BorderLayout());
         frame.setMinimumSize(new Dimension(640, 480));
+        
+        
 
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
@@ -80,11 +90,24 @@ public class AttractionView {
         buttonPanel.add(addButton, BorderLayout.WEST);
         
         returnButton = new JButton("Back");
-        returnButton.addActionListener(ActionEvent e) -> 
+        returnButton.addActionListener((ActionEvent e) -> backToPlannerView());
+        buttonPanel.add(returnButton, BorderLayout.EAST);
         
         frame.add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    public void showWindow() {
+        if (frame != null) {
+            frame.setVisible(true);
+        }
+    }
+
+    // Method to hide the window
+    public void hideWindow() {
+        if (frame != null) {
+            frame.setVisible(false);
+        }
+    }
     // Method to update the list with all attractions
     public void updateList() {
         listModel.clear();
@@ -103,9 +126,11 @@ public class AttractionView {
         }
 
         listModel.clear();
-        List<Attraction> attractions = planner.getAttractions();
+        List<Attraction> attractions = attractionController.getAttractions();
         for (Attraction attraction : attractions) {
-            if (attraction.getName().toLowerCase().contains(searchTerm)) {
+            if (attraction.getName().toLowerCase().contains(searchTerm) || 
+                attraction.getAttractionType().toLowerCase().contains(searchTerm) || 
+                attraction.getDescription().toLowerCase().contains(searchTerm)) {
                 listModel.addElement(attraction);
             }
         }
@@ -125,5 +150,9 @@ public class AttractionView {
             plannerView.updateList(); // Update the PlannerView list
             plannerView.showWindow(); // Reopen the PlannerView
         }
+    }
+    public void backToPlannerView(){
+        this.hideWindow();
+        plannerView.showWindow();
     }
 }

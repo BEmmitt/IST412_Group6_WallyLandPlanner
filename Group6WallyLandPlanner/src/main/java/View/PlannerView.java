@@ -13,6 +13,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -27,8 +29,9 @@ import javax.swing.JTextField;
  * @author bemmi
  */
 public class PlannerView {
+//    User user;
     LoginController loginController;
-    PlannerController plannerController = new PlannerController();
+    PlannerController plannerController;
     private JFrame frame;
     private JList<Attraction> list;
     private DefaultListModel<Attraction> listModel;
@@ -37,6 +40,10 @@ public class PlannerView {
     private JButton clearButton;
     private JButton deleteButton;
     
+//    public PlannerView(User user){
+//        this.user = user;
+//    }
+    
      public void setLoginController(LoginController controller) {
         this.loginController = controller;
     }
@@ -44,10 +51,18 @@ public class PlannerView {
      // Method to create the window with a space for a list
     public void createWindow(User user, LoginController controller) {
         setLoginController(controller);
+        plannerController = new PlannerController(user);
         
         frame = new JFrame(user.getUsername() + "'s Planner");
         frame.setSize(960, 720);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e){
+                hideWindow();
+                logout();
+            }
+        });
         frame.setLayout(new BorderLayout());
         frame.setMinimumSize(new Dimension(640, 480));
 
@@ -90,11 +105,7 @@ public class PlannerView {
         buttonPanel.add(reservationButton, BorderLayout.WEST);
 
         JButton logoutButton = new JButton("Logout");
-        logoutButton.addActionListener((ActionEvent e) -> {
-            if (loginController != null) {
-                loginController.logout();
-            }
-        });
+        logoutButton.addActionListener((ActionEvent e) -> logout());
         buttonPanel.add(logoutButton, BorderLayout.EAST);
         
         deleteButton = new JButton("Delete Reservation");
@@ -152,9 +163,18 @@ public class PlannerView {
         listModel.clear();
         List<Attraction> attractions = plannerController.getReservations();
         for (Attraction attraction : attractions) {
-            if (attraction.getName().toLowerCase().contains(searchTerm)) {
+            if (attraction.getName().toLowerCase().contains(searchTerm) || 
+                attraction.getAttractionType().toLowerCase().contains(searchTerm) || 
+                attraction.getDescription().toLowerCase().contains(searchTerm)) {
                 listModel.addElement(attraction);
             }
+        }
+    }
+    
+    //Logout Method
+    private void logout(){
+        if (loginController != null) {
+            loginController.logout();
         }
     }
     

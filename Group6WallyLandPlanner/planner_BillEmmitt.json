@@ -1,0 +1,20 @@
+{
+  "user": {
+    "username": "BillEmmitt",
+    "password": "password"
+  },
+  "reservedAttractions": [
+    {
+      "type": "Model.Ride",
+      "properties": {"thrillLevel":5,"name":"Drop Tower","location":"Park E","description":"An exhilarating drop tower ride"}
+    },
+    {
+      "type": "Model.Ride",
+      "properties": {"thrillLevel":2,"name":"Ferris Wheel","location":"Park C","description":"A giant ferris wheel"}
+    },
+    {
+      "type": "Model.Show",
+      "properties": {"showTime":"2:00 PM","name":"Comedy Show","location":"Theater B","description":"A hilarious comedy show"}
+    }
+  ]
+}

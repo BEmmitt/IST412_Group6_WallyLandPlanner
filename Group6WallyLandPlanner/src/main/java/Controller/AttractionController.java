@@ -9,6 +9,7 @@ import Model.Planner;
 import Model.Ride;
 import Model.Show;
 import View.AttractionView;
+import View.PlannerView;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,10 +24,11 @@ import java.util.List;
 
 public class AttractionController {
 
-    private AttractionView view;
+    
     private Planner planner;
     private List<Attraction> attractionList;
-
+    private PlannerView plannerView;
+    
     public AttractionController() {
         this.attractionList = new ArrayList<>();
                 
@@ -93,4 +95,6 @@ public class AttractionController {
     public List<Attraction> getAttractions() {
         return attractionList;
     }
+    
+    
 }
