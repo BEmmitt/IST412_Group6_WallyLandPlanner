@@ -5,6 +5,7 @@
 package View;
 
 import Controller.AttractionController;
+import Controller.PlannerController;
 import Model.Attraction;
 import Model.Planner;
 import java.awt.BorderLayout;
@@ -23,16 +24,21 @@ import javax.swing.JTextField;
 public class AttractionView {
     private AttractionController attractionController;
     private Planner planner;
+    private PlannerView plannerView;
+    private PlannerController plannerController;
     private JFrame frame;
     private JList<Attraction> list;
     private DefaultListModel<Attraction> listModel;
     private JTextField searchField;
     private JButton searchButton;
     private JButton clearButton;
+    private JButton addButton;
 
-    public AttractionView(AttractionController attractionController, Planner planner) {
+     public AttractionView(AttractionController attractionController, Planner planner, PlannerController plannerController, PlannerView plannerView) {
         this.attractionController = attractionController;
         this.planner = planner;
+        this.plannerController = plannerController;
+        this.plannerView = plannerView; // Initialize the PlannerView reference
     }
 
     // Method to create the window with a space for a list
@@ -66,6 +72,13 @@ public class AttractionView {
         frame.add(searchPanel, BorderLayout.NORTH);
 
         frame.setVisible(true);
+        
+        JPanel buttonPanel = new JPanel(new BorderLayout());
+        addButton = new JButton("Reserve Attraction");
+        addButton.addActionListener((ActionEvent e) -> addReservation());
+        buttonPanel.add(addButton);
+        
+        frame.add(buttonPanel, BorderLayout.SOUTH);
     }
 
     // Method to update the list with all attractions
@@ -98,5 +111,15 @@ public class AttractionView {
     private void clearSearch() {
         searchField.setText("");
         updateList();
+    }
+    private void addReservation(){
+        Attraction selectedAttraction = list.getSelectedValue();
+        if (selectedAttraction != null) {
+            plannerController.addAttraction(selectedAttraction);
+            System.out.println("Added reservation: " + selectedAttraction.getName());
+            frame.dispose(); // Close the AttractionView window
+            plannerView.updateList(); // Update the PlannerView list
+            plannerView.showWindow(); // Reopen the PlannerView
+        }
     }
 }

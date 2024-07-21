@@ -74,7 +74,7 @@ public class PlannerView {
         JButton reservationButton = new JButton("Add a new Reservation");
         reservationButton.addActionListener((ActionEvent e) -> {
             AttractionController attractionController = new AttractionController();
-            AttractionView attractionView = new AttractionView(attractionController, plannerController.getPlanner());
+            AttractionView attractionView = new AttractionView(attractionController, plannerController.getPlanner(), plannerController, this);
             attractionView.createWindow();
             this.hideWindow();
         });
