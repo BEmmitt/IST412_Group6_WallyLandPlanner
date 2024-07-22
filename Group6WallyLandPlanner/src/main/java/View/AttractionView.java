@@ -58,11 +58,10 @@ public class AttractionView {
         });
         frame.setLayout(new BorderLayout());
         frame.setMinimumSize(new Dimension(640, 480));
-        
-        
-
+               
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
+        list.setCellRenderer(new AttractionCellRenderer());
         updateList();
 
         JScrollPane listScrollPane = new JScrollPane(list);

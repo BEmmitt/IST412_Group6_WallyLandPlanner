@@ -68,6 +68,7 @@ public class PlannerView {
 
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
+        list.setCellRenderer(new AttractionCellRenderer());
         updateList();
 
         JScrollPane listScrollPane = new JScrollPane(list);
@@ -87,31 +88,26 @@ public class PlannerView {
         searchPanel.add(clearButton);
         frame.add(searchPanel, BorderLayout.NORTH);
         
+        
+        // Panel for the reservation and logout buttons with FlowLayout to position them side by side
+        JPanel buttonPanel = new JPanel(new BorderLayout());
+        
         JButton reservationButton = new JButton("Add a new Reservation");
         reservationButton.addActionListener((ActionEvent e) -> {
             AttractionController attractionController = new AttractionController();
             AttractionView attractionView = new AttractionView(attractionController, plannerController.getPlanner(), plannerController, this);
             attractionView.createWindow();
             this.hideWindow();
-        });
-        // Panel for the reservation and logout buttons with FlowLayout to position them side by side
-        JPanel buttonPanel = new JPanel(new BorderLayout());
-        
-//        reservationButton = new JButton("Add a new Reservation");
-//        reservationButton.addActionListener((ActionEvent e) -> {
-//            //AttractionView reservationView = new AttractionView();
-//            // reservationView.createWindow();
-//        });
-        buttonPanel.add(reservationButton, BorderLayout.WEST);
+        });        
+        buttonPanel.add(reservationButton, BorderLayout.CENTER);
 
         JButton logoutButton = new JButton("Logout");
         logoutButton.addActionListener((ActionEvent e) -> logout());
         buttonPanel.add(logoutButton, BorderLayout.EAST);
         
         deleteButton = new JButton("Delete Reservation");
-        deleteButton.addActionListener((ActionEvent e) -> deleteItem(list.getSelectedValue()));
-      
-        buttonPanel.add(deleteButton, BorderLayout.CENTER);
+        deleteButton.addActionListener((ActionEvent e) -> deleteItem(list.getSelectedValue()));     
+        buttonPanel.add(deleteButton, BorderLayout.WEST);
 
         frame.add(buttonPanel, BorderLayout.SOUTH);
     }

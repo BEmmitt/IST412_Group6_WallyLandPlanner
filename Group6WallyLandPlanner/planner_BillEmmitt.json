@@ -15,6 +15,10 @@
     {
       "type": "Model.Show",
       "properties": {"showTime":"2:00 PM","name":"Comedy Show","location":"Theater B","description":"A hilarious comedy show"}
+    },
+    {
+      "type": "Model.Ride",
+      "properties": {"thrillLevel":4,"name":"Bumper Cars","location":"Park D","description":"Exciting bumper cars"}
     }
   ]
 }
