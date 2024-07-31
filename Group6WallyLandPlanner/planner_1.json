@@ -1,0 +1,16 @@
+{
+  "user": {
+    "username": "1",
+    "password": "1"
+  },
+  "reservedAttractions": [
+    {
+      "type": "Model.Ride",
+      "properties": {"thrillLevel":5,"name":"Drop Tower","location":"Park E","description":"An exhilarating drop tower ride"}
+    },
+    {
+      "type": "Model.Show",
+      "properties": {"showTime":"8:00 PM","name":"Drama Play","location":"Theater E","description":"An engaging drama play"}
+    }
+  ]
+}

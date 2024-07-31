@@ -47,6 +47,10 @@ public class Order {
  * @param items the list of items available.
  */
     
+    public List<String> getItems() {
+    return items;
+}
+    
     public void setItems(List<String> items)
     {
         this.items=items;

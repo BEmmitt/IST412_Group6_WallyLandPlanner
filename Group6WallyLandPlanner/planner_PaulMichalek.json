@@ -1,0 +1,28 @@
+{
+  "user": {
+    "username": "PaulMichalek",
+    "password": "password"
+  },
+  "reservedAttractions": [
+    {
+      "type": "Model.Ride",
+      "properties": {"thrillLevel":5,"name":"Drop Tower","location":"Park E","description":"An exhilarating drop tower ride"}
+    },
+    {
+      "type": "Model.Show",
+      "properties": {"showTime":"12:00 PM","name":"Magic Show","location":"Theater A","description":"An amazing magic show"}
+    },
+    {
+      "type": "Model.Ride",
+      "properties": {"thrillLevel":4,"name":"Bumper Cars","location":"Park D","description":"Exciting bumper cars"}
+    },
+    {
+      "type": "Model.Ride",
+      "properties": {"thrillLevel":4,"name":"Bumper Cars","location":"Park D","description":"Exciting bumper cars"}
+    },
+    {
+      "type": "Model.Show",
+      "properties": {"showTime":"8:00 PM","name":"Drama Play","location":"Theater E","description":"An engaging drama play"}
+    }
+  ]
+}
