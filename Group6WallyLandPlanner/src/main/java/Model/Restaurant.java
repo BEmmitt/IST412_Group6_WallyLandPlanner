@@ -4,91 +4,134 @@
  */
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Shows information about Restaurants including Address and Ratings.
  * 
- * @version 1.0
- * @since 2024-06-09
- * @author Praj
+ * @version 2.0
+ * @since 2024-07-31
+ * @author Jordan
  */
 public class Restaurant {
-    
+
     private String name;
-    private String address;
-    private List<String> menu;
-    private double rating;
-    
+    private String location;
+    private String description;
+    private String cuisineType;
+    private List<FoodItem> menu;
+
     /**
-     * Gets the name of the restaurant.
+     * Constructor for the Restaurant class.
      * 
-     * @return the name of the restaurant.
+     * @param name        The name of the restaurant.
+     * @param location    The location of the restaurant.
+     * @param description A description of the restaurant.
+     * @param cuisineType The type of cuisine the restaurant offers.
      */
-    public String getName() {
-        return name;
-    }
-    
-    /**
-     * Sets the name of the restaurant.
-     * 
-     * @param name the name to set for the restaurant.
-     */
-    public void setName(String name) {
+    public Restaurant(String name, String location, String description, String cuisineType) {
         this.name = name;
+        this.location = location;
+        this.description = description;
+        this.cuisineType = cuisineType;
+        this.menu = new ArrayList<>();
     }
-    
+
     /**
-     * Gets the address of the restaurant.
+     * Gets the type of cuisine the restaurant offers.
      * 
-     * @return the address of the restaurant.
+     * @return The cuisine type as a String.
      */
-    public String getAddress() {
-        return address;
+    public String getCuisineType() {
+        return cuisineType;
     }
-    
+
     /**
-     * Sets the address of the restaurant.
+     * Sets the type of cuisine the restaurant offers.
      * 
-     * @param address the address to set for the restaurant.
+     * @param cuisineType The new cuisine type.
      */
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCuisineType(String cuisineType) {
+        this.cuisineType = cuisineType;
     }
-    
+
     /**
-     * Gets the menu of the restaurant.
+     * Adds a FoodItem to the restaurant's menu.
      * 
-     * @return the menu of the restaurant.
+     * @param foodItem The FoodItem to add.
      */
-    public List<String> getMenu() {
-        return menu;
+    public void addFoodItem(FoodItem foodItem) {
+        menu.add(foodItem);
     }
-    
+
     /**
-     * Sets the menu of the restaurant.
+     * Removes a FoodItem from the restaurant's menu.
      * 
-     * @param menu the menu to set for the restaurant.
+     * @param foodItem The FoodItem to remove.
      */
-    public void setMenu(List<String> menu) {
-        this.menu = menu;
+    public void removeFoodItem(FoodItem foodItem) {
+        menu.remove(foodItem);
     }
-    
+
     /**
-     * Gets the rating of the restaurant.
+     * Removes a FoodItem from the restaurant's menu by its index.
      * 
-     * @return the rating of the restaurant.
+     * @param index The index of the FoodItem to remove.
      */
-    public double getRating() {
-        return rating;
+    public void removeFoodItem(int index) {
+        if (index >= 0 && index < menu.size()) {
+            menu.remove(index);
+        }
     }
-    
+
     /**
-     * Sets the rating of the restaurant.
+     * Finds a FoodItem by its name.
      * 
-     * @param rating the rating to set for the restaurant.
+     * @param name The name of the FoodItem.
+     * @return The FoodItem with the specified name, or null if not found.
      */
-    public void setRating(double rating) {
-        this.rating = rating;
+    public FoodItem findFoodItemByName(String name) {
+        for (FoodItem item : menu) {
+            if (item.getName().equalsIgnoreCase(name)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the number of FoodItems in the menu.
+     * 
+     * @return The number of FoodItems.
+     */
+    public int getNumberOfFoodItems() {
+        return menu.size();
+    }
+
+    /**
+     * Checks if a specific FoodItem is in the menu.
+     * 
+     * @param foodItem The FoodItem to check.
+     * @return true if the FoodItem is in the menu, false otherwise.
+     */
+    public boolean hasFoodItem(FoodItem foodItem) {
+        return menu.contains(foodItem);
+    }
+
+    /**
+     * Clears all FoodItems from the menu.
+     */
+    public void clearAllFoodItems() {
+        menu.clear();
+    }
+
+    /**
+     * Gets the attraction type, which is "Restaurant" for this class.
+     * 
+     * @return The attraction type as a String.
+     */
+    public String getAttractionType() {
+        return "Restaurant";
     }
 }
