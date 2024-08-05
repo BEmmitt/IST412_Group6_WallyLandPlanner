@@ -14,6 +14,9 @@ We combined our second and third use case into: Attraction Reservations.
 
 The classes utilized by this use case include:
 
+Main class:
+- Demo (Controller Package)
+
 Model:
 - Planner(added serialization so Planners persist between runs)
 - Attraction
