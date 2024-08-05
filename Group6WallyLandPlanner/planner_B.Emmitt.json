@@ -1,0 +1,16 @@
+{
+  "user": {
+    "username": "B.Emmitt",
+    "password": "password"
+  },
+  "reservedAttractions": [
+    {
+      "type": "Model.Ride",
+      "properties": {"thrillLevel":5,"name":"Roller Coaster","location":"Park A","description":"A thrilling roller coaster"}
+    },
+    {
+      "type": "Model.Restaurant",
+      "properties": {"cuisineType":"French","timeSlot":"1:00 PM","name":"The Gourmet Bistro","location":"Downtown","description":"A cozy bistro with gourmet meals"}
+    }
+  ]
+}

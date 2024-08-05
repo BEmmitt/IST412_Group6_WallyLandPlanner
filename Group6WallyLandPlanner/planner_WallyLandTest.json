@@ -1,0 +1,16 @@
+{
+  "user": {
+    "username": "WallyLandTest",
+    "password": "password"
+  },
+  "reservedAttractions": [
+    {
+      "type": "Model.Ride",
+      "properties": {"thrillLevel":3,"name":"Log Flume","location":"Park B","description":"A fun log flume ride"}
+    },
+    {
+      "type": "Model.Restaurant",
+      "properties": {"cuisineType":"Italian","timeSlot":"8:00 PM","name":"Pasta Palace","location":"City Center","description":"Authentic Italian pasta dishes"}
+    }
+  ]
+}
