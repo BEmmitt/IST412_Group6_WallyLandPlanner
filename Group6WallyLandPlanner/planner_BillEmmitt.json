@@ -13,12 +13,24 @@
       "properties": {"thrillLevel":2,"name":"Ferris Wheel","location":"Park C","description":"A giant ferris wheel"}
     },
     {
-      "type": "Model.Show",
-      "properties": {"showTime":"2:00 PM","name":"Comedy Show","location":"Theater B","description":"A hilarious comedy show"}
+      "type": "Model.Ride",
+      "properties": {"thrillLevel":4,"name":"Bumper Cars","location":"Park D","description":"Exciting bumper cars"}
+    },
+    {
+      "type": "Model.Restaurant",
+      "properties": {"cuisineType":"Seafood","timeSlot":"5:00 PM","name":"Ocean\u0027s Delight","location":"Seaside","description":"Fresh seafood dishes with an ocean view"}
     },
     {
       "type": "Model.Ride",
-      "properties": {"thrillLevel":4,"name":"Bumper Cars","location":"Park D","description":"Exciting bumper cars"}
+      "properties": {"thrillLevel":5,"name":"Drop Tower","location":"Park E","description":"An exhilarating drop tower ride"}
+    },
+    {
+      "type": "Model.Show",
+      "properties": {"showTime":"6:00 PM","name":"Circus Act","location":"Theater D","description":"A thrilling circus act"}
+    },
+    {
+      "type": "Model.Restaurant",
+      "properties": {"cuisineType":"French","timeSlot":"1:00 PM","name":"The Gourmet Bistro","location":"Downtown","description":"A cozy bistro with gourmet meals"}
     }
   ]
 }

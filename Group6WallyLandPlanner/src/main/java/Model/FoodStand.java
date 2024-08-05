@@ -16,13 +16,13 @@ import java.util.List;
  * @author Jordan
  * @author: bemmi
  */
-public class FoodStand {
+public class FoodStand extends Attraction{
 
-    private String name;
-    private String location;
-    private String description;
+    
     private String specialty;
     private List<FoodItem> menu;
+
+    
 
     /**
      * Constructor for the FoodStand class.
@@ -33,9 +33,9 @@ public class FoodStand {
      * @param specialty   The specialty of the food stand.
      */
     public FoodStand(String name, String location, String description, String specialty) {
-        this.name = name;
-        this.location = location;
-        this.description = description;
+        setName(name);
+        setLocation(location);
+        setDescription(description);
         this.specialty = specialty;
         this.menu = new ArrayList<>();
     }
@@ -133,7 +133,18 @@ public class FoodStand {
      * 
      * @return The attraction type as a String.
      */
+    @Override
     public String getAttractionType() {
         return "Food Stand";
+    }
+    
+    public List<FoodItem> getMenu() {
+        return menu;
+    }
+    
+    @Override
+    public String toString() {
+        return ("Type: " + getAttractionType() + " | Name: " + getName() + " | Cuisine Type: " + getSpecialty() + " | Location: " + getLocation() + " | Description: " + getDescription());
+                
     }
 }

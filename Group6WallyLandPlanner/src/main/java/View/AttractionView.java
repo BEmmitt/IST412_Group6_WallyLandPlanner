@@ -19,9 +19,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 public class AttractionView {
     private AttractionController attractionController;
@@ -62,6 +64,7 @@ public class AttractionView {
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
         list.setCellRenderer(new AttractionCellRenderer());
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         updateList();
 
         JScrollPane listScrollPane = new JScrollPane(list);
@@ -149,6 +152,8 @@ public class AttractionView {
             plannerView.updateList(); // Update the PlannerView list
             plannerView.showWindow(); // Reopen the PlannerView
         }
+        JOptionPane.showMessageDialog(frame, "Attraction has been added to the planner.");
+
     }
     public void backToPlannerView(){
         this.hideWindow();

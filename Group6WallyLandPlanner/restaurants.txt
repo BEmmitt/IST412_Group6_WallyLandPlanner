@@ -1,0 +1,12 @@
+The Gourmet Bistro,Downtown,A cozy bistro with gourmet meals,French,12:00 PM
+The Gourmet Bistro,Downtown,A cozy bistro with gourmet meals,French,1:00 PM
+The Gourmet Bistro,Downtown,A cozy bistro with gourmet meals,French,2:00 PM
+The Gourmet Bistro,Downtown,A cozy bistro with gourmet meals,French,3:00 PM
+Ocean's Delight,Seaside,Fresh seafood dishes with an ocean view,Seafood,4:00 PM
+Ocean's Delight,Seaside,Fresh seafood dishes with an ocean view,Seafood,5:00 PM
+Ocean's Delight,Seaside,Fresh seafood dishes with an ocean view,Seafood,6:00 PM
+Ocean's Delight,Seaside,Fresh seafood dishes with an ocean view,Seafood,7:00 PM
+Pasta Palace,City Center,Authentic Italian pasta dishes,Italian,8:00 PM
+Pasta Palace,City Center,Authentic Italian pasta dishes,Italian,9:00 PM
+Pasta Palace,City Center,Authentic Italian pasta dishes,Italian,10:00 PM
+Pasta Palace,City Center,Authentic Italian pasta dishes,Italian,11:00 PM

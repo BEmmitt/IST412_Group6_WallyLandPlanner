@@ -1,0 +1,5 @@
+Cheeseburger,5.99
+Double Cheeseburger,8.99
+Fries,2.99
+Soda,1.99
+Milkshake,3.99

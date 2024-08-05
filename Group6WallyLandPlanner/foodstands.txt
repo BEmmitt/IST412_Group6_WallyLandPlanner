@@ -1,0 +1,6 @@
+Burger Barn,Food Court A,Classic American burgers and fries,American
+Taco Truck,South Plaza,Authentic Mexican street tacos,Mexican
+Sushi Station,East Wing,Fresh sushi and sashimi made to order,Japanese
+Gelato Galore,Central Park,Handmade gelato with various flavors,Italian
+Pizza Palace,West Pavilion,Wood-fired pizzas with gourmet toppings,Italian
+Salad Shack,North Lane,Fresh and healthy salads with a variety of dressings,Health Food

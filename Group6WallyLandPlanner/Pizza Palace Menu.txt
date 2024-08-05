@@ -1,0 +1,5 @@
+Margherita Pizza,12.99
+Pepperoni Pizza,13.99
+Garlic Knots,4.99
+Red Wine,5.00
+Italian Soda,3.00

@@ -6,6 +6,7 @@ package Controller;
 
 import Model.Attraction;
 import Model.Planner;
+import Model.Restaurant;
 import Model.User;
 import java.util.List;
 
@@ -36,6 +37,12 @@ public class PlannerController {
      */
     public boolean addAttraction(Attraction attraction) {
         boolean result = planner.getAttractions().add(attraction);
+        planner.savePlanner(user.getUsername());
+        return result;
+    }
+    
+    public boolean addRestaurant(Restaurant restaurant){
+        boolean result = planner.getAttractions().add(restaurant);
         planner.savePlanner(user.getUsername());
         return result;
     }

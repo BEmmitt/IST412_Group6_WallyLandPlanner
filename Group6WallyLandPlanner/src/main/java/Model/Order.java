@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model;
+import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,45 +18,36 @@ import java.util.List;
  */
 public class Order {
     
-    private User user;
-    private List<String> items;
+    LocalDateTime pickupTime;
+    private List<FoodItem> items = new ArrayList();
     private double totalAmount;
     
     
+    public LocalDateTime getPickupTime() {
+        return pickupTime;
+    }
+
+    public void setPickupTime(LocalDateTime pickupTime) {
+        this.pickupTime = pickupTime;
+    }
     /**
- * Gets the user who made the order.
- * 
- * @return the user who made the reservation.
- */
-    public User getUser() 
-    {
-        return user;
+     * sets the list of items available to order.
+     * 
+     * 
+     * @return list of items in order.
+    */
+    
+    public List<FoodItem> getItems() {
+        return items;
     }
     
-    /**
- * Sets the user who made the order.
- * 
- * @param user the user to set for the order.
- */
-    
-    public void setUser(User user)
-    {
-        this.user=user;
-    }
-    
-    /**
- * sets the list of items available to order.
- * 
- * @param items the list of items available.
- */
-    
-    public List<String> getItems() {
-    return items;
-}
-    
-    public void setItems(List<String> items)
+    public void setItems(List<FoodItem> items)
     {
         this.items=items;
+    }
+    
+    public void addItem(FoodItem item){
+        items.add(item);
     }
     
     /**
@@ -62,9 +56,13 @@ public class Order {
  * @return the total amount price.
  */
     
-    public double getTotalAmount()
+    public String getTotalAmount()
     {
-        return totalAmount;
+        for(FoodItem item: items){
+            totalAmount += item.getPrice();
+        }
+        DecimalFormat df = new DecimalFormat("0.00");
+        return df.format(totalAmount);
     }
     
     /**

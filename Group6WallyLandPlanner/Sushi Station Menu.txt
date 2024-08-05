@@ -1,0 +1,5 @@
+California Roll,8.99
+Spicy Tuna Roll,9.99
+Miso Soup,3.99
+Green Tea,1.99
+Sake,6.00

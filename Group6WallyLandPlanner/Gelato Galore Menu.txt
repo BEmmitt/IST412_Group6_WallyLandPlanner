@@ -1,0 +1,5 @@
+Stracciatella,4.50
+Pistachio,4.50
+Mango Sorbet,4.00
+Espresso,2.50
+Italian Soda,3.00

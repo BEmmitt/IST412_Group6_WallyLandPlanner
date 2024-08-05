@@ -4,9 +4,6 @@
  */
 package Model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Shows information about Restaurants including Address and Ratings.
  * 
@@ -14,13 +11,10 @@ import java.util.List;
  * @since 2024-07-31
  * @author Jordan
  */
-public class Restaurant {
+public class Restaurant extends Attraction{
 
-    private String name;
-    private String location;
-    private String description;
     private String cuisineType;
-    private List<FoodItem> menu;
+    private String timeSlot;
 
     /**
      * Constructor for the Restaurant class.
@@ -31,11 +25,10 @@ public class Restaurant {
      * @param cuisineType The type of cuisine the restaurant offers.
      */
     public Restaurant(String name, String location, String description, String cuisineType) {
-        this.name = name;
-        this.location = location;
-        this.description = description;
+        setName(name);
+        setLocation(location);
+        setDescription(description);
         this.cuisineType = cuisineType;
-        this.menu = new ArrayList<>();
     }
 
     /**
@@ -55,75 +48,13 @@ public class Restaurant {
     public void setCuisineType(String cuisineType) {
         this.cuisineType = cuisineType;
     }
-
-    /**
-     * Adds a FoodItem to the restaurant's menu.
-     * 
-     * @param foodItem The FoodItem to add.
-     */
-    public void addFoodItem(FoodItem foodItem) {
-        menu.add(foodItem);
+       
+    public String getTimeSlot() {
+        return timeSlot;
     }
 
-    /**
-     * Removes a FoodItem from the restaurant's menu.
-     * 
-     * @param foodItem The FoodItem to remove.
-     */
-    public void removeFoodItem(FoodItem foodItem) {
-        menu.remove(foodItem);
-    }
-
-    /**
-     * Removes a FoodItem from the restaurant's menu by its index.
-     * 
-     * @param index The index of the FoodItem to remove.
-     */
-    public void removeFoodItem(int index) {
-        if (index >= 0 && index < menu.size()) {
-            menu.remove(index);
-        }
-    }
-
-    /**
-     * Finds a FoodItem by its name.
-     * 
-     * @param name The name of the FoodItem.
-     * @return The FoodItem with the specified name, or null if not found.
-     */
-    public FoodItem findFoodItemByName(String name) {
-        for (FoodItem item : menu) {
-            if (item.getName().equalsIgnoreCase(name)) {
-                return item;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Gets the number of FoodItems in the menu.
-     * 
-     * @return The number of FoodItems.
-     */
-    public int getNumberOfFoodItems() {
-        return menu.size();
-    }
-
-    /**
-     * Checks if a specific FoodItem is in the menu.
-     * 
-     * @param foodItem The FoodItem to check.
-     * @return true if the FoodItem is in the menu, false otherwise.
-     */
-    public boolean hasFoodItem(FoodItem foodItem) {
-        return menu.contains(foodItem);
-    }
-
-    /**
-     * Clears all FoodItems from the menu.
-     */
-    public void clearAllFoodItems() {
-        menu.clear();
+    public void setTimeSlot(String timeSlot) {
+        this.timeSlot = timeSlot;
     }
 
     /**
@@ -131,7 +62,14 @@ public class Restaurant {
      * 
      * @return The attraction type as a String.
      */
+    @Override
     public String getAttractionType() {
         return "Restaurant";
+    }
+    
+    @Override
+    public String toString() {
+        return ("Type: " + getAttractionType() + " | Name: " + getName() + " | Cuisine Type: " + getCuisineType() + " | Location: " + getLocation() + " | Description: " + getDescription() + " | Reservation Time: " + getTimeSlot());
+                
     }
 }

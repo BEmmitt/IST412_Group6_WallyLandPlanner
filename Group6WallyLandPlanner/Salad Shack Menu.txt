@@ -1,0 +1,5 @@
+Caesar Salad,7.99
+Greek Salad,8.99
+Fruit Salad,6.99
+Green Smoothie,4.50
+Herbal Tea,2.50

@@ -5,47 +5,57 @@
 package View;
 
 import Controller.AttractionController;
+import Controller.FoodOrderController;
 import Controller.LoginController;
 import Controller.PlannerController;
+import Controller.RestaurantController;
 import Model.Attraction;
+import Model.FoodItem;
+import Model.Order;
 import Model.User;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 /**
  *
  * @author bemmi
  */
 public class PlannerView {
-//    User user;
+
     LoginController loginController;
     PlannerController plannerController;
     private JFrame frame;
     private JList<Attraction> list;
     private DefaultListModel<Attraction> listModel;
     private JTextField searchField;
+    private Order order;
+
     private JButton searchButton;
     private JButton clearButton;
     private JButton deleteButton;
     
-//    public PlannerView(User user){
-//        this.user = user;
-//    }
+
     
      public void setLoginController(LoginController controller) {
         this.loginController = controller;
+        order = null;
     }
 
      // Method to create the window with a space for a list
@@ -69,6 +79,7 @@ public class PlannerView {
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
         list.setCellRenderer(new AttractionCellRenderer());
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         updateList();
 
         JScrollPane listScrollPane = new JScrollPane(list);
@@ -90,24 +101,69 @@ public class PlannerView {
         
         
         // Panel for the reservation and logout buttons with FlowLayout to position them side by side
-        JPanel buttonPanel = new JPanel(new BorderLayout());
+        JPanel mainButtonPanel = new JPanel(new GridLayout(3, 1, 10, 10));
+        JPanel bottomButtonPanel = new JPanel(new BorderLayout());
         
-        JButton reservationButton = new JButton("Add a new Reservation");
+        JButton reservationButton = new JButton("Reserve an Attraction");
         reservationButton.addActionListener((ActionEvent e) -> {
             AttractionController attractionController = new AttractionController();
             AttractionView attractionView = new AttractionView(attractionController, plannerController.getPlanner(), plannerController, this);
             attractionView.createWindow();
             this.hideWindow();
         });        
-        buttonPanel.add(reservationButton, BorderLayout.CENTER);
+        mainButtonPanel.add(reservationButton);
+        
+        JButton restaurantButton = new JButton("Reserve a Restaurant");
+        restaurantButton.addActionListener((ActionEvent e) -> {           
+            RestaurantController restaurantController = new RestaurantController();
+            RestaurantView restaurantView = new RestaurantView(restaurantController, plannerController.getPlanner(), plannerController, this);
+            restaurantView.createWindow();
+            this.hideWindow();            
+        });   
+        mainButtonPanel.add(restaurantButton);
+        
+        JButton mobileOrderButton = new JButton("FoodStand Mobile Order");
+        mobileOrderButton.setPreferredSize(new Dimension(200, 50));
+        mobileOrderButton.addActionListener((ActionEvent e) -> {
+            
+            if (order != null){
+                if(LocalDateTime.now().isAfter(order.getPickupTime())){
+                    order = null;
+                }else{
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                    String formattedPickupTime = order.getPickupTime().format(formatter);
+                    JOptionPane.showMessageDialog(frame, """
+                                                      There is already an order.
+                                                      Only one order can be active per account.
+                                                      Sorry for any inconvienence.
+                                                      You can reorder after""" + " " + formattedPickupTime);
+                }
+            }else{
+                FoodOrderController foodOrderController = new FoodOrderController();
+                FoodOrderView restaurantView = new FoodOrderView(foodOrderController, plannerController.getPlanner(), plannerController, this);
+                restaurantView.createWindow();
+                this.hideWindow();
+            }
+        }); 
+        mainButtonPanel.add(mobileOrderButton);
+        
+        JButton checkOrderButton = new JButton("Check Order");
+        checkOrderButton.setPreferredSize(new Dimension(200, 50));
+        checkOrderButton.addActionListener((ActionEvent e) -> checkOrderClick());
+        mainButtonPanel.add(checkOrderButton);
 
         JButton logoutButton = new JButton("Logout");
         logoutButton.addActionListener((ActionEvent e) -> logout());
-        buttonPanel.add(logoutButton, BorderLayout.EAST);
+        bottomButtonPanel.add(logoutButton, BorderLayout.EAST);
         
         deleteButton = new JButton("Delete Reservation");
         deleteButton.addActionListener((ActionEvent e) -> deleteItem(list.getSelectedValue()));     
-        buttonPanel.add(deleteButton, BorderLayout.WEST);
+        bottomButtonPanel.add(deleteButton, BorderLayout.WEST);
+
+        // Main panel to hold both button panels
+        JPanel buttonPanel = new JPanel(new BorderLayout());
+        buttonPanel.add(mainButtonPanel, BorderLayout.NORTH);
+        buttonPanel.add(bottomButtonPanel, BorderLayout.SOUTH);
 
         frame.add(buttonPanel, BorderLayout.SOUTH);
     }
@@ -126,14 +182,20 @@ public class PlannerView {
         }
     }
 
+     public void setOrder(Order order) {
+        this.order = order;
+    }
     // Method to add items to the list
     public void addItem(Attraction attraction) {
         listModel.addElement(attraction);
     }
     
     public void deleteItem(Attraction attraction) {
-        listModel.removeElement(attraction);
-        plannerController.removeAttraction(attraction);
+        int confirm = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this reservation?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION){
+            listModel.removeElement(attraction);
+            plannerController.removeAttraction(attraction);
+        }
     }
     
     public void updateList() {
@@ -143,6 +205,29 @@ public class PlannerView {
         }
     }
 
+    public void checkOrderClick() {
+        
+        if(order == null){
+            JOptionPane.showMessageDialog(frame, "No orders to display.");
+        }else {
+            List<FoodItem> orderItems = order.getItems();
+            StringBuilder orderDetails = new StringBuilder("Order Details:\n");
+            double totalAmount = 0.0;
+
+            for (FoodItem item : orderItems) {
+                orderDetails.append(item.getName()).append(" - $").append(String.format("%.2f", item.getPrice())).append("\n");
+                totalAmount += item.getPrice();
+            }            
+            if (order.getPickupTime() != null) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                String formattedPickupTime = order.getPickupTime().format(formatter);
+                orderDetails.append("\nPickup Time: ").append(formattedPickupTime);
+            }
+
+            JOptionPane.showMessageDialog(frame, orderDetails.toString(), "Current Order", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
     // Method to clear the list
     public void clearList() {
         listModel.clear();
@@ -169,8 +254,11 @@ public class PlannerView {
     
     //Logout Method
     private void logout(){
-        if (loginController != null) {
-            loginController.logout();
+        int confirm = JOptionPane.showConfirmDialog(frame, "Are you sure you want to Logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION){
+            if (loginController != null) {
+                loginController.logout();
+            }
         }
     }
     

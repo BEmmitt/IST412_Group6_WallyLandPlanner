@@ -4,23 +4,16 @@
  */
 package Controller;
 
+import Model.FoodItem;
 import Model.FoodStand;
 import Model.Order;
 import Model.User;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JOptionPane;
-import javax.swing.BorderFactory;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+
 
 /**
  *
@@ -38,42 +31,72 @@ public class FoodOrderController {
         this.order = new Order();
     }
 
+     public void loadFoodStandsFromFile(String filename) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                // Assuming each line is in the format: name,location,description,specialty
+                String[] parts = line.split(",");
+                if (parts.length == 4) {
+                    String name = parts[0].trim();
+                    String location = parts[1].trim();
+                    String description = parts[2].trim();
+                    String specialty = parts[3].trim();
+
+                    FoodStand foodStand = new FoodStand(name, location, description, specialty);
+                    foodStands.add(foodStand);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void loadMenuForFoodStand(FoodStand foodStand) {
+        String filename = foodStand.getName() + " Menu.txt";
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                // Assuming each line is in the format: itemName,description,price
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    String itemName = parts[0].trim();
+                    double itemPrice = Double.parseDouble(parts[1].trim());
+
+                    FoodItem foodItem = new FoodItem(itemName, itemPrice);
+                    foodStand.addFoodItem(foodItem);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }    
+     
     // Adds a FoodStand to the list of food stands
     public void addFoodStand(FoodStand foodStand) {
-        foodStands.add(foodStand);
+        if (!foodStands.contains(foodStand)){
+            foodStands.add(foodStand);
+        }
     }
 
     // Adds an item to the order
-    public void addItemToOrder(String foodItem) {
-        List<String> items = order.getItems();
-        if (items == null) {
-            items = new ArrayList<>();
-        }
-        items.add(foodItem);
-        order.setItems(items);
+    public void addItemToOrder(FoodItem foodItem) {
+        order.addItem(foodItem);
     }
 
     // Removes an item from the order by the food item
-    public void removeItemFromOrder(String foodItem) {
-        List<String> items = order.getItems();
+    public void removeItemFromOrder(FoodItem foodItem) {
+        List<FoodItem> items = order.getItems();
         if (items != null && items.contains(foodItem)) {
             items.remove(foodItem);
             order.setItems(items);
         }
     }
 
-    // Removes an item from the order by index
-    public void removeItemFromOrder(int index) {
-        List<String> items = order.getItems();
-        if (items != null && index >= 0 && index < items.size()) {
-            items.remove(index);
-            order.setItems(items);
-        }
-    }
 
     // Gets the number of items in the order
     public int getNumberOfFoodItems() {
-        List<String> items = order.getItems();
+        List<FoodItem> items = order.getItems();
         return (items != null) ? items.size() : 0;
     }
 
@@ -82,13 +105,9 @@ public class FoodOrderController {
         order.setItems(new ArrayList<>());
     }
 
-    // Sets the user for the order
-    public void setUserForOrder(User user) {
-        order.setUser(user);
-    }
 
     // Gets the total amount of the order
-    public double getTotalAmount() {
+    public String getTotalAmount() {
         return order.getTotalAmount();
     }
 

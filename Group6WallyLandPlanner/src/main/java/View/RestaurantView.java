@@ -4,58 +4,62 @@
  */
 package View;
 
-import Controller.FoodOrderController;
 import Controller.PlannerController;
-import Model.FoodStand;
+import Controller.RestaurantController;
 import Model.Planner;
-import javax.swing.*;
-import java.awt.*;
+import Model.Restaurant;
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 /**
- * Represents the user interface for the food ordering system.
  *
  * @version 1.0
- * @since 2024-07-28
+ * @since 2024-07-30
  * @author pault
  */
 
-public class FoodOrderView {
+public class RestaurantView {
 
-    private JFrame frame;
-    private JList<FoodStand> list;
-    private DefaultListModel<FoodStand> listModel;
-    
-    private JButton addFoodItemButton;
-    private JButton removeFoodItemButton;
-    private JButton cancelOrderButton;
-    private FoodOrderController foodOrderController;
+    private RestaurantController restaurantController;
     private Planner planner;
     private PlannerView plannerView;
     private PlannerController plannerController;
+    private JFrame frame;
+    private JList<Restaurant> list;
+    private DefaultListModel<Restaurant> listModel;
+    
     private JTextField searchField;
     private JButton searchButton;
     private JButton clearButton;
 
     private JButton backButton;
-    private JButton placeOrderButton;
-    
+    private JButton addPlannerButton;
 
     /**
-     * Constructor for the FoodOrderView class.
+     * Constructor for the RestaurantReservationView class.
      * Initializes the controller and sets up the window.
-     * 
-     * @param controller The FoodOrderController instance to handle actions.
+     *
+     * @param controller The RestaurantReservationController instance to handle actions.
      * @param planner
      * @param plannerController
      * @param plannerView
      */
-    public FoodOrderView(FoodOrderController controller, Planner planner, PlannerController plannerController, PlannerView plannerView) {
-        this.foodOrderController = controller;
+    public RestaurantView(RestaurantController controller, Planner planner, PlannerController plannerController, PlannerView plannerView) {
+        this.restaurantController = controller;
         this.planner = planner;
         this.plannerController = plannerController;
         this.plannerView = plannerView;
@@ -65,8 +69,8 @@ public class FoodOrderView {
      * Sets up the main window and its components.
      */
     public void createWindow() {
-        foodOrderController.loadFoodStandsFromFile("foodstands.txt");
-        frame = new JFrame("Food Order System");
+        restaurantController.loadRestaurantsFromFile("restaurants.txt");
+        frame = new JFrame("Restaurant Reservation System");
         frame.setSize(960, 720);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
@@ -87,6 +91,7 @@ public class FoodOrderView {
         JScrollPane listScrollPane = new JScrollPane(list);
         frame.add(listScrollPane, BorderLayout.CENTER);
 
+        
         // Search panel
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         searchField = new JTextField(20);
@@ -103,15 +108,16 @@ public class FoodOrderView {
         
         frame.setVisible(true);
         
+        // Create the panel for buttons
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
         backButton = new JButton("Back");
         backButton.addActionListener((ActionEvent e) -> backToPlannerView());
         buttonPanel.add(backButton, BorderLayout.EAST);
 
-        placeOrderButton = new JButton("Place Mobile Order");
-        placeOrderButton.addActionListener((ActionEvent e) -> placeOrderClick());
-        buttonPanel.add(placeOrderButton, BorderLayout.CENTER);
-        
+        addPlannerButton = new JButton("Add to Planner");
+        addPlannerButton.addActionListener((ActionEvent e) -> addPlannerClicked());
+        buttonPanel.add(addPlannerButton);
         frame.add(buttonPanel, BorderLayout.SOUTH);
     }
 
@@ -132,21 +138,29 @@ public class FoodOrderView {
             frame.setVisible(false);
         }
     }
-
+    // Method to update the list with all attractions
     public void updateList() {
         listModel.clear();
-        List<FoodStand> foodStands = foodOrderController.getFoodStands();
-        for (FoodStand foodStand : foodStands) {
-            listModel.addElement(foodStand);
+        List<Restaurant> restaurants = restaurantController.getAvailableRestaurants();
+        for (Restaurant restaurant : restaurants) {
+            listModel.addElement(restaurant);
         }
-    } 
-    
-    private void placeOrderClick() {        
-        MobileOrderView foodOrderView = new MobileOrderView(this,foodOrderController, list.getSelectedValue(), plannerView);
-        foodOrderView.createWindow();
-        this.hideWindow();
+    }    
+
+    /**
+     * Action to be performed when the "Add to Itinerary" button is clicked.
+     */
+    private void addPlannerClicked() {
+        Restaurant selectedRestaurant = list.getSelectedValue();
+        if (selectedRestaurant != null) {
+            plannerController.addAttraction(selectedRestaurant);
+            System.out.println("Added reservation: " + selectedRestaurant.getName());
+            frame.dispose(); // Close the AttractionView window
+            plannerView.updateList(); // Update the PlannerView list
+            plannerView.showWindow(); // Reopen the PlannerView
+        }
+        JOptionPane.showMessageDialog(frame, "Restaurant reservation has been added to the planner.");
     }
-    
     // Method to perform search and update the list
     private void performSearch() {
         String searchTerm = searchField.getText().trim().toLowerCase();
@@ -156,12 +170,12 @@ public class FoodOrderView {
         }
 
         listModel.clear();
-        List<FoodStand> foodStands = foodOrderController.getFoodStands();
-        for (FoodStand foodStand : foodStands) {
-            if (foodStand.getName().toLowerCase().contains(searchTerm) || 
-                foodStand.getAttractionType().toLowerCase().contains(searchTerm) || 
-                foodStand.getDescription().toLowerCase().contains(searchTerm)) {
-                listModel.addElement(foodStand);
+        List<Restaurant> restaurants = restaurantController.getAvailableRestaurants();
+        for (Restaurant restaurant : restaurants) {
+            if (restaurant.getName().toLowerCase().contains(searchTerm) || 
+                restaurant.getAttractionType().toLowerCase().contains(searchTerm) || 
+                restaurant.getDescription().toLowerCase().contains(searchTerm)) {
+                listModel.addElement(restaurant);
             }
         }
     }
@@ -171,7 +185,7 @@ public class FoodOrderView {
         searchField.setText("");
         updateList();
     }
-
+       
     public void backToPlannerView(){
         this.hideWindow();
         plannerView.showWindow();

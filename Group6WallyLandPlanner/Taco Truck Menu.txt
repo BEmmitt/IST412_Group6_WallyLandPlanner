@@ -1,0 +1,5 @@
+Taco al Pastor,3.50
+Guacamole,1.50
+Jarritos,2.00
+Horchata,2.50
+Margarita,5.00
