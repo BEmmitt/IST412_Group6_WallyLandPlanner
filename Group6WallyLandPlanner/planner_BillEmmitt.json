@@ -31,6 +31,14 @@
     {
       "type": "Model.Restaurant",
       "properties": {"cuisineType":"French","timeSlot":"1:00 PM","name":"The Gourmet Bistro","location":"Downtown","description":"A cozy bistro with gourmet meals"}
+    },
+    {
+      "type": "Model.Ride",
+      "properties": {"thrillLevel":4,"name":"Bumper Cars","location":"Park D","description":"Exciting bumper cars"}
+    },
+    {
+      "type": "Model.Restaurant",
+      "properties": {"cuisineType":"French","timeSlot":"3:00 PM","name":"The Gourmet Bistro","location":"Downtown","description":"A cozy bistro with gourmet meals"}
     }
   ]
 }
